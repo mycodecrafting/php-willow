@@ -1,0 +1,7 @@
+app:
+  # development, test, production
+  environment:          development
+  timezone:             UTC
+  charset:              UTF-8
+db:
+  connection:           "mysql://root:cr8amps1@localhost/redtag_appserver"

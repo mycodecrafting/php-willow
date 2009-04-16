@@ -1,0 +1,7 @@
+app:
+  # development, test, production
+  environment:          development
+  timezone:             America/Chicago
+  charset:              UTF-8
+db:
+  connection:           "mysql://root@localhost/app-db"

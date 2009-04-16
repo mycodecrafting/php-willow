@@ -1,0 +1,20 @@
+scripts/doctrine build-all - Calls generate-models-from-yaml, create-db, and create-tables
+scripts/doctrine build-all-load - Calls build-all, and load-data
+scripts/doctrine build-all-reload - Calls rebuild-db and load-data
+scripts/doctrine compile - Compile doctrine classes in to one single php file
+scripts/doctrine create-db - Create all databases for your connections. If the database already exists, nothing happens.
+scripts/doctrine create-tables - Create tables for all existing database connections. If table exists nothing happens.
+scripts/doctrine dql - Execute dql query and display the results
+scripts/doctrine drop-db - Drop database for all existing connections
+scripts/doctrine dump-data - Dump data to a yaml data fixture file.
+scripts/doctrine generate-migration - Generate new migration class definition
+scripts/doctrine generate-migrations-db - Generate migration classes for an existing database
+scripts/doctrine generate-migrations-models - Generate migration classes for an existing set of models
+scripts/doctrine generate-models-db - Generates your Doctrine_Record definitions from your existing database connections.
+scripts/doctrine generate-models-yaml - Generates your Doctrine_Record definitions from a Yaml schema file
+scripts/doctrine generate-sql - Generate sql for all existing database connections.
+scripts/doctrine generate-yaml-db - Generates a Yaml schema file from an existing database
+scripts/doctrine generate-yaml-models - Generates a Yaml schema file from existing Doctrine_Record definitions
+scripts/doctrine load-data - Load data from a yaml data fixture file.
+scripts/doctrine migrate - Migrate database to latest version or the specified version
+scripts/doctrine rebuild-db - Drops and re-creates databases

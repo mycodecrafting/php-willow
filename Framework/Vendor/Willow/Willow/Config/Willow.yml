@@ -1,0 +1,13 @@
+app:
+  # development, test, production
+  environment:          development
+  timezone:             UTC
+  charset:              UTF-8
+plugins:
+  disabled:
+    - "Data:Propel"
+    - "TemplateEngine:Smarty"
+db:
+  connection:           "mysql://root:password@localhost/db_name"
+  collation:            utf8_unicode_ci
+  charset:              utf8

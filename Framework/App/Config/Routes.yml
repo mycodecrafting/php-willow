@@ -1,0 +1,23 @@
+# generic edit entry route
+editEntry:
+  route:              ":module/:section/edit/:entryId"
+  defaults:
+    action:           edit
+  params:
+    entryId:          "\d+"
+
+# generic submit entry route
+submitEntry:
+  route:              ":module/:section/submit/:entryId"
+  defaults:
+    action:           submit
+  params:
+    entryId:          "\d+"
+
+# generic delete entry route
+submitEntry:
+  route:              ":module/:section/delete/:entryId"
+  defaults:
+    action:           delete
+  params:
+    entryId:          "\d+"

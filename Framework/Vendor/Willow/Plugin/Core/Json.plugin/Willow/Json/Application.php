@@ -1,0 +1,71 @@
+<?php
+/* $Id$ */
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+
+class Willow_Json_Application extends Willow_Http_Application
+{
+
+    protected function _execute()
+    {
+        /**
+         * Run core plexus hooks
+         */
+        $this->getCorePlexus()->doWillowJsonApplicationStart();
+
+        try
+        {
+            parent::_execute();
+        }
+
+        /**
+         * Trap all others and issue a 500 Internal Server Error
+         */
+        catch (Exception $e)
+        {
+            $this->_executeHttpError(
+                new Willow_Http_Error(500, $e->getMessage())
+            );
+        }
+
+        /**
+         * Run core plexus hooks
+         */
+        $this->getCorePlexus()->doWillowJsonApplicationStop();
+    }
+
+    protected function _executeHttpError(Willow_Http_Error $error)
+    {
+        /**
+         * Create HTTP error actions instance
+         */
+        $actions = new Willow_Json_Error_Actions($this->getRequest());
+
+        /**
+         * Create HTTP error view instance
+         */
+        $view = new Willow_Json_Error_View($this->getRequest());
+
+        /**
+         * Setup error
+         */
+        $actions->setError($error);
+        $view->setError($error);
+
+        /**
+         * Attach the view to the actions
+         */
+        $actions->attachView($view);
+
+        /**
+         * Run the actions
+         */
+        $actions->run();
+
+        /**
+         * Render the view
+         */
+        $view->render();
+    }
+
+}
