@@ -6,7 +6,7 @@
 /**
  * ...
  */
-abstract class Willow_Validate_Rule_Filter extends Willow_Validate_Rule_Asbtract
+abstract class Willow_Validate_Rule_Filter extends Willow_Validate_Rule_Abstract
 {
 
     /**

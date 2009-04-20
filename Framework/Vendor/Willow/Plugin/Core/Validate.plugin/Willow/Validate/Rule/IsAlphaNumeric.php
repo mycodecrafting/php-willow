@@ -6,7 +6,7 @@
 /**
  * ...
  */
-class Willow_Validate_Rule_IsAlphaNumeric extends Willow_Validate_Rule_Asbtract
+class Willow_Validate_Rule_IsAlphaNumeric extends Willow_Validate_Rule_Abstract
 {
 
     /**
