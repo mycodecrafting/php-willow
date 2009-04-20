@@ -195,8 +195,14 @@ class Willow_Validate implements Willow_Registerable_Interface,
             );
         }
 
-        $validator = $this->_getValidator($method)
-            ->newInstanceArgs($args);
+        if (count($args))
+        {
+            $validator = $this->_getValidator($method)->newInstanceArgs($args);
+        }
+        else
+        {
+            $validator = $this->_getValidator($method)->newInstance();
+        }
 
         $field = $this->_currentField;
         $this->_currentField = null;
