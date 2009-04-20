@@ -17,7 +17,7 @@ abstract class Willow_Validate_Rule_Abstract
     /**
      * ...
      */
-    protected function orError($withMessage)
+    public function orError($withMessage)
     {
         $this->_errorMessage = $withMessage;
     }
