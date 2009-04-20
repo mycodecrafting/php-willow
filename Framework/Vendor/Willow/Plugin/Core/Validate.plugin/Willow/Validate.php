@@ -70,7 +70,7 @@ class Willow_Validate implements Willow_Registerable_Interface,
             }
         }
 
-        return (count($this->_errors) > 0);
+        return (count($this->_errors) === 0);
     }
 
     /**
