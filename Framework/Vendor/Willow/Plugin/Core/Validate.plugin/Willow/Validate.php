@@ -42,6 +42,43 @@ class Willow_Validate implements Willow_Registerable_Interface,
         {
             $rule->orError($message);
         }
+
+        return $this;
+    }
+
+    /**
+     * ...
+     */
+    protected $_errors = array();
+
+    /**
+     * ...
+     */
+    public function isValid()
+    {
+        $this->_errors = array();
+
+        foreach ($this->_rules as $rule)
+        {
+            try
+            {
+                $rule['rule']->validate($this->_request->{$rule['field']});
+            }
+            catch (Willow_Validate_Rule_Exception $e)
+            {
+                $this->_errors[] = new Willow_Validate_Error($rule['field'], $e);
+            }
+        }
+
+        return (count($this->_errors) > 0);
+    }
+
+    /**
+     * ...
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
     }
 
     /**
@@ -106,6 +143,71 @@ class Willow_Validate implements Willow_Registerable_Interface,
     public function registerTransient($alias, $class)
     {
         $this->_transientMap[$alias] = $class;
+    }
+
+    /**
+     * ...
+     */
+    protected static $_reflectionCache = array();
+
+    /**
+     * ...
+     */
+    protected function _getValidator($alias)
+    {
+        $class = $this->getRegistered($alias);
+
+        /**
+         * Create reflection instance if not yet created in the cache
+         */
+        if (array_key_exists($class, self::$_reflectionCache) === false)
+        {
+            self::$_reflectionCache[$class] = new ReflectionClass($class);
+        }
+
+        return self::$_reflectionCache[$class];
+    }
+
+    /**
+     * ...
+     */
+    protected $_currentField = null;
+
+    /**
+     * ...
+     */
+    public function __get($property)
+    {
+        $this->_currentField = $property;
+        return;
+    }
+
+    /**
+     * ...
+     */
+    public function __call($method, $args)
+    {
+        if ($this->_currentField === null)
+        {
+            throw new Willow_Validate_Exception(
+                'Must first sepcify which field to validate on ' .
+                'when using the fluid interface to Willow_Validate'
+            );
+        }
+
+        $validator = $this->_getValidator($method)
+            ->newInstanceArgs($args);
+
+        $field = $this->_currentField;
+        $this->_currentField = null;
+
+        $this->add($field, $validator);
+
+        /**
+         * Return $validator to allow access such as:
+         *     $validate->fieldName->followsRule()->orError($withMessage)
+         */
+        return $validator;
     }
 
 }
