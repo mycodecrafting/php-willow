@@ -17,5 +17,6 @@ Willow_Validate::register('isInRange', 'FlexieIsInRangeValidator');
 
 Willow_Validate::register('isNotEmpty', 'Willow_Validate_Rule_IsNotEmpty');
 Willow_Validate::register('isNumeric', 'Willow_Validate_Rule_IsNumeric');
+Willow_Validate::register('isUrl', 'Willow_Validate_Rule_IsUrl');
 
 Willow_Validate::register('matches', 'FlexieMatchesValidator');
