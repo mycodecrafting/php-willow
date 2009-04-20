@@ -179,7 +179,7 @@ class Willow_Validate implements Willow_Registerable_Interface,
     public function __get($property)
     {
         $this->_currentField = $property;
-        return;
+        return $this;
     }
 
     /**
