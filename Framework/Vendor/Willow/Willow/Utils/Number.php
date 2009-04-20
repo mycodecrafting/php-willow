@@ -33,4 +33,20 @@ class Willow_Utils_Number
         return round($percentage, $precision);
     }
 
+    /**
+     * square a number
+     */
+    public function squared()
+    {
+        return floatval(pow($this->_number, 2));
+    }
+
+    /**
+     * Get the square root of a number
+     */
+    public function squareRoot()
+    {
+        return sqrt($this->_number);
+    }
+
 }

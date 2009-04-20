@@ -54,7 +54,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
         /**
          * default protocol
          */
-        $protocol = 'http';
+        $protocol = self::getDefaultProtocol();
 
         /**
          * segment.protocol
@@ -230,6 +230,38 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
         self::$_protocolAliasMap[$alias] = $protocol;
     }
 
+    /**
+     * @var string Default protocol
+     */
+    protected static $_defaultProtocol = null;
+
+    /**
+     * Regsiter a default protocol
+     */
+    public static function registerDefaultProtocol($protocol)
+    {
+        if (self::isValidProtocol($protocol) === false)
+        {
+            throw new Willow_Request_Exception(sprintf(
+                'Trying to register default protocol as invalid protocol "%s"',
+                $protocol
+            ));
+        }
+
+        self::$_defaultProtocol = $protocol;
+    }
+
+    /**
+     * Get registered default protocol
+     */
+    public static function getDefaultProtocol()
+    {
+        return self::$_defaultProtocol;
+    }
+
+    /**
+     * Get protocol registered to $alias
+     */
     public static function getRegisteredProtocol($alias)
     {
         if (array_key_exists($alias, self::$_protocolAliasMap) === true)
