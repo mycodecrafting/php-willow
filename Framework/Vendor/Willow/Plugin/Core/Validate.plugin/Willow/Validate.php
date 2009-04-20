@@ -28,7 +28,7 @@ class Willow_Validate implements Willow_Registerable_Interface,
     /**
      * Add a validation rule to the current set
      */
-    public function add($field, Willow_Validate_Rule_Asbtract $rule, $message = null)
+    public function add($field, Willow_Validate_Rule_Abstract $rule, $message = null)
     {
         $this->_rules[] = array(
             'field' => $field,
