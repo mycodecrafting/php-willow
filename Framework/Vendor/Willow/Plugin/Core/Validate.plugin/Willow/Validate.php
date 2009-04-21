@@ -67,7 +67,7 @@ class Willow_Validate implements Willow_Registerable_Interface,
 
                 if ($rule['sanitizer'] !== null)
                 {
-                    $request = $request->sanitized->{$rule['sanitizer']}();
+                    $request = $request->sanitized()->{$rule['sanitizer']}();
                 }
 
                 $rule['rule']->validate($request->{$rule['field']});
