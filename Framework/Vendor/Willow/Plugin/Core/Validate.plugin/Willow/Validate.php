@@ -103,7 +103,7 @@ class Willow_Validate implements Willow_Registerable_Interface,
         {
             throw new Willow_Validate_Exception(
                 'Must first sepcify which field to validate on ' .
-                'before calling Willow_Validate::sanitized() '
+                'before calling Willow_Validate::sanitized() ' .
                 'when using the fluid interface'
             );
         }
