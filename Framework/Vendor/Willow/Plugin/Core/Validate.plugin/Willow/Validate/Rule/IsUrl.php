@@ -6,24 +6,58 @@
 /**
  * ...
  */
-class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Filter
+class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Matches
 {
 
-    /**
-     * Validate that $value is a valid url
-     *
-     * @param mixed $value Value to validate using this rule
-     */
-    public function validate($value)
+    public function __construct()
     {
-        $flags = FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED | FILTER_FLAG_PATH_REQUIRED;
+        /**
+         * Build the URL PCRE pattern
+         * {{{
+         */
 
-        if (filter_var($value, FILTER_VALIDATE_URL, $flags) === false)
-        {
-            return $this->_throwError();
-        }
+         /**
+          * Scheme (required part)
+          */
+         $pattern = '(https?|ftp)\:\/\/';
 
-        return true;
+         /**
+          * Username:password (optional part)
+          */
+         $pattern .= '([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?';
+
+         /**
+          * hostname or IP (http://x.xx(x) = minimum)
+          */
+         $pattern .= '([a-z0-9+\$_-]+\.)*[a-z0-9+\$_-]{2,3}';
+
+         /**
+          * Optional port
+          */
+         $pattern .= '(\:[0-9]{2,5})?';
+
+         /**
+          * Path (optional)
+          */
+         $pattern .= '(\/([a-z0-9+\$_-]\.?)+)*\/?';
+
+         /**
+          * Query string (optional)
+          */
+         $pattern .= '(\?[a-z+&\$_.-][a-z0-9;:@/&%=+\$_.-]*)?';
+
+         /**
+          * Anchor (optional)
+          */
+         $pattern .= '(#[a-z_.-][a-z0-9+\$_.-]*)?';
+
+        /**
+         * }}}
+         */
+
+        $pattern = sprintf('/^%s$/i', $pattern);
+
+        parent::__construct($pattern);
     }
 
 }
