@@ -28,11 +28,12 @@ class Willow_Validate implements Willow_Registerable_Interface,
     /**
      * Add a validation rule to the current set
      */
-    public function add($field, Willow_Validate_Rule_Abstract $rule, $message = null)
+    public function add($field, Willow_Validate_Rule_Abstract $rule, $sanitizer = null, $message = null)
     {
         $this->_rules[] = array(
             'field' => $field,
             'rule' => $rule,
+            'sanitizer' => $sanitizer,
         );
 
         /**
@@ -62,7 +63,14 @@ class Willow_Validate implements Willow_Registerable_Interface,
         {
             try
             {
-                $rule['rule']->validate($this->_request->{$rule['field']});
+                $request = $this->_request;
+
+                if ($rule['sanitizer'] !== null)
+                {
+                    $request = $request->sanitized->{$rule['sanitizer']}();
+                }
+
+                $rule['rule']->validate($request->{$rule['field']});
             }
             catch (Willow_Validate_Rule_Exception $e)
             {
@@ -79,6 +87,30 @@ class Willow_Validate implements Willow_Registerable_Interface,
     public function getErrors()
     {
         return $this->_errors;
+    }
+
+    /**
+     * ...
+     */
+    protected $_currentSanitizer = null;
+
+    /**
+     * ...
+     */
+    public function sanitized($asAlias = 'default')
+    {
+        if ($this->_currentField === null)
+        {
+            throw new Willow_Validate_Exception(
+                'Must first sepcify which field to validate on ' .
+                'before calling Willow_Validate::sanitized() '
+                'when using the fluid interface'
+            );
+        }
+
+        $this->_currentSanitizer = $asAlias;
+
+        return $this;
     }
 
     /**
@@ -195,6 +227,9 @@ class Willow_Validate implements Willow_Registerable_Interface,
             );
         }
 
+        /**
+         * Create new instance of this rule
+         */
         if (count($args))
         {
             $validator = $this->_getValidator($method)->newInstanceArgs($args);
@@ -204,10 +239,16 @@ class Willow_Validate implements Willow_Registerable_Interface,
             $validator = $this->_getValidator($method)->newInstance();
         }
 
-        $field = $this->_currentField;
-        $this->_currentField = null;
+        /**
+         * Add to validation rules
+         */
+        $this->add($this->_currentField, $validator, $this->_currentSanitizer);
 
-        $this->add($field, $validator);
+        /**
+         * Reset current field & sanitizer
+         */
+        $this->_currentField = null;
+        $this->_currentSanitizer = null;
 
         /**
          * Return $validator to allow access such as:

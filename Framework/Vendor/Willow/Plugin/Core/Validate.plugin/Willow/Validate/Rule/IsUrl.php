@@ -16,7 +16,7 @@ class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Filter
      */
     public function validate($value)
     {
-        $flags = FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED;
+        $flags = FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED | FILTER_FLAG_PATH_REQUIRED;
 
         if (filter_var($value, FILTER_VALIDATE_URL, $flags) === false)
         {
