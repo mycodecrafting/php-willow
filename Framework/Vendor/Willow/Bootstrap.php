@@ -85,7 +85,7 @@ if (function_exists('mb_internal_encoding') === false)
 }
 
 /**
- * Set mb_string encoding to $config::charset
+ * Set mb_string encoding to config:app:charset
  */
 mb_internal_encoding($config->app->charset);
 

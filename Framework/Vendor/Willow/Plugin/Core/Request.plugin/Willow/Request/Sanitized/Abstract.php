@@ -16,9 +16,22 @@ abstract class Willow_Request_Sanitized_Abstract
      *
      * @param Willow_Request_Abstract $request
      */
-    public function __construct(Willow_Request_Abstract $request)
+    public function __construct(Willow_Request_Abstract $request = null)
+    {
+        if ($request !== null)
+        {
+            $this->setRequest($request);
+        }
+    }
+
+    /**
+     * ...
+     */
+    public function setRequest(Willow_Request_Abstract $request)
     {
         $this->_request = $request;
+
+        return $this;
     }
 
     /**
@@ -59,7 +72,8 @@ abstract class Willow_Request_Sanitized_Abstract
     {
         if (isset($this->_request->$property))
         {
-            return $this->sanitize($this->_request->$property);
+            $value = $this->_request->$property;
+            return $this->sanitize($value);
         }
     }
 

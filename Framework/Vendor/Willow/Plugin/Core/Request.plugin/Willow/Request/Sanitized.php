@@ -74,7 +74,7 @@ class Willow_Request_Sanitized implements Willow_Registerable_Interface, Willow_
             if (is_string($this->_transientMap[$alias]))
             {
                 $class = $this->_transientMap[$alias];
-                $this->registerTransient($alias, new $class($this->_request));
+                $this->registerTransient($alias, new $class());
             }
 
             $registered = $this->_transientMap[$alias];
@@ -88,7 +88,7 @@ class Willow_Request_Sanitized implements Willow_Registerable_Interface, Willow_
             if (is_string(self::$_classMap[$alias]))
             {
                 $class = self::$_classMap[$alias];
-                self::register($alias, new $class($this->_request));
+                self::register($alias, new $class());
             }
 
             $registered = self::$_classMap[$alias];
@@ -117,6 +117,15 @@ class Willow_Request_Sanitized implements Willow_Registerable_Interface, Willow_
             ));
         }
 
+        /**
+         * Set request on sanitizer instance
+         * (allows single instance to be used with multiple request types)
+         */
+        $registered->setRequest($this->_request);
+
+        /**
+         * Return sanitizer
+         */
         return $registered;
     }
 

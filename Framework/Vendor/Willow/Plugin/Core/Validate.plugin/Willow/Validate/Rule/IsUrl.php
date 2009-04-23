@@ -13,6 +13,9 @@ class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Matches
     {
         /**
          * Build the URL PCRE pattern
+         * 
+         * expressions gathered from:
+         * http://www.phpcentral.com/208-url-validation-php.html
          * {{{
          */
 
@@ -24,7 +27,7 @@ class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Matches
          /**
           * Username:password (optional part)
           */
-         $pattern .= '([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?';
+         $pattern .= '([a-z0-9+!*(),;\?\&=\$_.-]+(\:[a-z0-9+!*(),;\?\&=\$_.-]+)?@)?';
 
          /**
           * hostname or IP (http://x.xx(x) = minimum)
@@ -44,7 +47,7 @@ class Willow_Validate_Rule_IsUrl extends Willow_Validate_Rule_Matches
          /**
           * Query string (optional)
           */
-         $pattern .= '(\?[a-z+&\$_.-][a-z0-9;:@/&%=+\$_.-]*)?';
+         $pattern .= '(\?[a-z+&\$_.-][a-z0-9;:@\/\&%=+\$_.-]*)?';
 
          /**
           * Anchor (optional)

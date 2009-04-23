@@ -71,6 +71,15 @@ abstract class Willow_View_Abstract implements Willow_View_Interface
     {
         $this->preGenerate();
 
+        /**
+         * Set module, section, action as template vars
+         */
+        $this->getTemplate()->willow = array(
+            'module' => $this->getRequest()->getModule(),
+            'section' => $this->getRequest()->getSection(),
+            'action' => $this->getRequest()->getAction(),
+        );
+
         $this->getPlexus()->doWillowViewGenerate();
 
         $this->getPlexus()->doGenerate($this);

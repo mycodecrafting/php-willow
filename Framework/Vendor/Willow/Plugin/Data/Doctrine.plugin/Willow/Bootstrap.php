@@ -28,7 +28,7 @@ $config = Willow_Blackboard::get('config');
 /**
  * Setup Doctrine connection
  */
-Doctrine_Manager::connection($config->db->connection);
+Doctrine_Manager::connection($config->db->connection, 'default');
 
 /**
  * Setup Doctrine collation & character set

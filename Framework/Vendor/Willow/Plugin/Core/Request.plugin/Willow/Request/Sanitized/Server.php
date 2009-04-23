@@ -35,7 +35,8 @@ class Willow_Request_Sanitized_Server extends Willow_Request_Sanitized_Default
             default:
                 if (isset($this->_request->$property))
                 {
-                    return $this->sanitize($this->_request->$property);
+                    $value = $this->_request->$property;
+                    return $this->sanitize($value);
                 }
                 break;
         }
