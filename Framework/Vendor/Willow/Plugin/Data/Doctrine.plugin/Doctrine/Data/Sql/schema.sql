@@ -1,0 +1,1 @@
+CREATE TABLE willow_doctrine_session (id VARCHAR(32), data TEXT, created DATETIME NOT NULL, updated DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;

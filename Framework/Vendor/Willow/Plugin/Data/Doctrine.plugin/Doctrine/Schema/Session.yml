@@ -1,0 +1,14 @@
+Willow_Doctrine_Session:
+  actAs:
+    Timestampable:
+      created:
+        name:         created
+      updated:
+        name:         updated
+  tableName:          willow_doctrine_session
+  columns:
+    id:
+      primary:        true
+      type:           string(32)
+    data:
+      type:           string(3000)

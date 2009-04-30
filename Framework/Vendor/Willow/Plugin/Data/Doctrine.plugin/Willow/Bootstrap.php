@@ -49,3 +49,8 @@ Willow_Whiteboard::register(
         'yaml_schema_path'   => Willow_Loader::getRealPath('App:Doctrine:Schema', false, false),
     )
 );
+
+/**
+ * Setup session handler
+ */
+Willow_Session::registerHandler(new Willow_Session_Handler_Doctrine());
