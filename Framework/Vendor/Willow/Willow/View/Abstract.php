@@ -117,9 +117,29 @@ abstract class Willow_View_Abstract implements Willow_View_Interface
         return $this->_templateDisabled;
     }
 
+    /**
+     * ...
+     */
+    protected $_validationErrors = array();
+
     // may be called by Willow_Actions_Abstract
     public function setValidationError($field, $message)
     {
+        /**
+         * Push error message to error stack
+         */
+        $this->_validationErrors[] = array(
+            'field' => $field,
+            'message' => $message,
+        );
+
+        /**
+         * Update error stack in template
+         */
+        if ($this->isTemplateDisabled() === false)
+        {
+            $this->getTemplate()->setVar('validationErrors', $this->_validationErrors);
+        }
     }
 
 }

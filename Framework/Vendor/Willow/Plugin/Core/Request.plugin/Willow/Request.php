@@ -96,6 +96,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     public function setModule($module)
     {
         $this->_module = $this->_normalize($module);
+        return $this;
     }
 
     /**
@@ -112,6 +113,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     public function setSection($section)
     {
         $this->_section = $this->_normalize($section);
+        return $this;
     }
 
     /**
@@ -128,6 +130,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     public function setAction($action)
     {
         $this->_action = $this->_normalize($action);
+        return $this;
     }
 
     /**
@@ -146,6 +149,49 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
         $this->_protocol = $this->_normalize(
             self::getRegisteredProtocol($protocol)
         );
+        return $this;
+    }
+
+    /**
+     * ...
+     */
+    protected $_defaults = array(
+        'module' => 'Default',
+        'section' => 'Index',
+        'action' => 'Index',
+    );
+
+    public function getDefaultModule()
+    {
+        return $this->_defaults['module'];
+    }
+
+    public function setDefaultModule($module)
+    {
+        $this->_defaults['module'] = $this->_normalize($module);
+        return $this;
+    }
+
+    public function getDefaultSection()
+    {
+        return $this->_defaults['section'];
+    }
+
+    public function setDefaultSection($section)
+    {
+        $this->_defaults['section'] = $this->_normalize($section);
+        return $this;
+    }
+
+    public function getDefaultAction()
+    {
+        return $this->_defaults['action'];
+    }
+
+    public function setDefaultAction($action)
+    {
+        $this->_defaults['action'] = $this->_normalize($action);
+        return $this;
     }
 
     /**
@@ -160,7 +206,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
 
         $segments = explode('/', $this->_path);
 
-        if (isset($segments[$index]))
+        if (isset($segments[$index]) && ($segments[$index] !== ''))
         {
             return $segments[$index];
         }

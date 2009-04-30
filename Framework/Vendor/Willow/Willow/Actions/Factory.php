@@ -217,11 +217,28 @@ class Willow_Actions_Factory
     {
         $className = $this->_getClassName();
 
-        $parent = 'Willow_Actions_Abstract';
-
-        if ($this->_request->getProtocol())
+        try
         {
-            $parent = sprintf('Willow_%s_Actions', $this->_request->getProtocol());
+            $dataPath = array(
+                'Modules',
+                $this->_request->getModule(),
+                'Actions',
+            );
+
+            $dataPath = implode(':', $dataPath);
+
+            $this->_checkDataPath($dataPath);
+
+            $parent = sprintf('%s_Actions', $this->_request->getModule());
+        }
+        catch (Willow_DataPath_Exception $e)
+        {
+            $parent = 'Willow_Actions_Abstract';
+
+            if ($this->_request->getProtocol())
+            {
+                $parent = sprintf('Willow_%s_Actions', $this->_request->getProtocol());
+            }
         }
 
         $class = sprintf(

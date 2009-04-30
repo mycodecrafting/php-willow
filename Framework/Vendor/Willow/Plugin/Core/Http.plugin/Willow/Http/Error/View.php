@@ -26,6 +26,7 @@ class Willow_Http_Error_View extends Willow_Http_View
     protected function _setHeaders()
     {
         $this->_setStatus($this->_error->getCode());
+        $this->setTemplateDisabled(true);
     }
 
     public function generate()

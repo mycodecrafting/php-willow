@@ -63,7 +63,9 @@ class Willow_Yaml_Node implements ArrayAccess, IteratorAggregate
 
     public function addSeriesValue($key, $value)
     {
-        if (!is_array($this->___children[$key]))
+        if ((array_key_exists($key, $this->___children) === false) ||
+            (is_array($this->___children[$key]) === false)
+        )
         {
             $this->___children[$key] = array();
         }

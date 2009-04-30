@@ -86,6 +86,85 @@ class Willow_Plugin
         }
     }
 
+    /**
+     * ...
+     */
+    protected static $_configs;
+
+    /**
+     * ...
+     */
+    public static function getConfigs($exceptions = array())
+    {
+        if (!isset(self::$_configs))
+        {
+            self::$_configs = array();
+
+            foreach (self::$_pluginTypes as $pluginType)
+            {
+                self::_checkForConfigs($pluginType, $exceptions);
+            }
+        }
+
+        return self::$_configs;
+    }
+
+    protected static function _checkForConfigs($type, $exceptions = array())
+    {
+        /**
+         * Setup the plugin paths
+         */
+        $pluginPaths = array(
+            // core framework path
+            'Vendor:Willow:Plugin:%s',
+
+            // vendor path
+            'Vendor:Plugin:%s',
+
+            // app path
+            'App:Plugin:%s',
+
+            // deployment path
+            'Deployment:Plugin:%s',
+        );
+
+        /**
+         * Get plugins of this type in any of the plugin paths
+         */
+        foreach ($pluginPaths as $path)
+        {
+            foreach (self::_getPluginsInPath(sprintf($path, $type)) as $plugin)
+            {
+                $dataPath = sprintf('%s:%s', $type, $plugin);
+
+                /**
+                 * Plugin is excluded
+                 */
+                if (in_array($dataPath, $exceptions))
+                {
+                    continue;
+                }
+
+                /**
+                 * Plugin has a config
+                 */
+                if (($config = Willow_Loader::getRealPath(sprintf('Plugin:%s:Willow:Config:Willow', $dataPath), false, 'yml')) !== false)
+                {
+                    self::$_configs[] = $config;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     protected static function _getPluginsInPath($dataPath)
     {

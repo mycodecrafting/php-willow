@@ -9,9 +9,9 @@ class Willow_Request_Router_Route_Default implements Willow_Request_Router_Route
     public function match(Willow_Request_Interface $request)
     {
         $params = array(
-            'module'  => 'default',
-            'section' => 'index',
-            'action'  => 'index',
+            'module'  => $request->getDefaultModule(),
+            'section' => $request->getDefaultSection(),
+            'action'  => $request->getDefaultAction(),
             'params'  => array(),
         );
 

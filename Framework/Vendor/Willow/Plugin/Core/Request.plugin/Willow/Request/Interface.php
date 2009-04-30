@@ -24,6 +24,18 @@ interface Willow_Request_Interface
     public function setAction($action);
 
     /**
+     * ...
+     */
+    public function getDefaultModule();
+    public function setDefaultModule($module);
+
+    public function getDefaultSection();
+    public function setDefaultSection($module);
+
+    public function getDefaultAction();
+    public function setDefaultAction($module);
+
+    /**
      * Get a segment from the URI path
      *
      * @param integer $index Segment index to get

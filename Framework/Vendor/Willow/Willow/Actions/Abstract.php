@@ -55,6 +55,11 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
      */
     public function run()
     {
+        if ($this->authenticate() !== true)
+        {
+            return;
+        }
+
         /**
          * Calls hooks xxxWillowActionsDoAction
          */
@@ -64,6 +69,14 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
          * Run actions
          */
         $this->getPlexus()->doDoAction($this);
+    }
+
+    /**
+     * ...
+     */
+    public function authenticate()
+    {
+        return true;
     }
 
     /**

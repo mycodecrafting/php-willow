@@ -101,6 +101,13 @@ Willow_Utils::register('string', 'Willow_Utils_String');
 Willow_Utils::register('number', 'Willow_Utils_Number');
 
 /**
+ * Load framework plugins
+ */
+Willow_Plugin::loadAll(
+    $exceptions = $config->plugins->disabled
+);
+
+/**
  * Remove bootrap vars from global scope
  */
 unset($config);

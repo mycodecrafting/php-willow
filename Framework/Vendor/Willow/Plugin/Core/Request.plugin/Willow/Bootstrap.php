@@ -24,3 +24,8 @@ Willow_Request_Sanitized::register('asBoolean', 'Willow_Request_Sanitized_AsBool
 Willow_Request_Sanitized::register('asString', 'Willow_Request_Sanitized_AsString');
 Willow_Request_Sanitized::register('asIpAddress', 'Willow_Request_Sanitized_AsIpAddress');
 Willow_Request_Sanitized::register('default', 'Willow_Request_Sanitized_Default');
+
+/**
+ * Setup modules in autoload path
+ */
+Willow_Loader::appendIncludePath('App:Modules');

@@ -195,6 +195,14 @@ class Willow_Session implements Willow_Session_Namespace_Handler_Interface
     /**
      * ...
      */
+    public static function getName()
+    {
+        return session_name();
+    }
+
+    /**
+     * ...
+     */
     public static function writeClose()
     {
         session_write_close();
@@ -203,12 +211,39 @@ class Willow_Session implements Willow_Session_Namespace_Handler_Interface
     /**
      * ...
      */
-    public static function destroy()
+    public static function destroy($expireCookie = true)
     {
         /**
          * Destroy session
          */
         session_destroy();
+
+        /**
+         * Expire session cookie
+         */
+        if ($expireCookie === true)
+        {
+            self::expireCookie();
+        }
+    }
+
+    /**
+     * ...
+     */
+    public static function expireCookie()
+    {
+        if (isset($_COOKIE[self::getName()]))
+        {
+            $params = session_get_cookie_params();
+            setcookie(
+                self::getName(),
+                false,
+                time() - 3600,
+                $params['path'],
+                $params['domain'],
+                $params['secure']
+            );
+        }
     }
 
     /**

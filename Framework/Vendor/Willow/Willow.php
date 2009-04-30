@@ -115,6 +115,14 @@ final class Willow
         );
 
         /**
+         * load any configs from plugins
+         */
+        foreach (Willow_Plugin::getConfigs() as $config)
+        {
+            $conf->assimilate($config);
+        }
+
+        /**
          * Assimilate app config
          */
         if (($yaml = Willow_Loader::getRealPath('App:Config:Willow', false, 'yml')) !== false)

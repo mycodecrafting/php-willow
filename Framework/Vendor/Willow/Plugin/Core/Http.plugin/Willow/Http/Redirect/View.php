@@ -6,6 +6,8 @@
 class Willow_Http_Redirect_View extends Willow_Http_View
 {
 
+    
+
     /**
      * @var Willow_Http_Redirect
      */
@@ -24,8 +26,9 @@ class Willow_Http_Redirect_View extends Willow_Http_View
 
     protected function _setHeaders()
     {
-        $this->_setStatus($this->_redirect->getCode());\
+        $this->_setStatus($this->_redirect->getCode());
 		$this->_setHeader('Location', $this->_redirect->getUri());
+        $this->setTemplateDisabled(true);
     }
 
     public function generate()
