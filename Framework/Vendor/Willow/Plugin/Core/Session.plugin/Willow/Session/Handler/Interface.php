@@ -6,11 +6,11 @@
 interface Willow_Session_Handler_Interface
 {
 
-	public static function open($savePath, $sessionName);
-	public static function close();
-	public static function read($sessionId);
-	public static function write($sessionId, $data);
-	public static function destroy($sessionId);
-	public static function gc($maxLifeTime);
+	public function open($savePath, $sessionName);
+	public function close();
+	public function read($sessionId);
+	public function write($sessionId, $data);
+	public function destroy($sessionId);
+	public function gc($maxLifeTime);
 
 }
