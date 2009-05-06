@@ -142,4 +142,12 @@ abstract class Willow_View_Abstract implements Willow_View_Interface
         }
     }
 
+    /**
+     * ...
+     */
+    public function getValidationErrors()
+    {
+        return $this->_validationErrors;
+    }
+
 }

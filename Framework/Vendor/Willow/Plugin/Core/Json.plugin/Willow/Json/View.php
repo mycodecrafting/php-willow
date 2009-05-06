@@ -28,8 +28,8 @@ abstract class Willow_Json_View extends Willow_Http_View
     protected function _setDefaultHeaders()
     {
         parent::_setDefaultHeaders();
-        $this->_setContentType('text/json');
-//        $this->_setContentType('application/json');
+//        $this->_setContentType('text/plain');
+        $this->_setContentType('application/json');
 
         /**
          * Send 500 header if there are validation errors
@@ -39,7 +39,7 @@ abstract class Willow_Json_View extends Willow_Http_View
             $this->_setStatus(500);
         }
     }
-
+/*
     public function setValidationError($field, $message, $userCanBypass = false)
     {
         if (($errors = $this->getTemplate()->getVar('errors')) === false)
@@ -49,7 +49,7 @@ abstract class Willow_Json_View extends Willow_Http_View
 
         /**
          * Push error message to error stack
-         */
+         *//*
         $errors[] = array(
             'field' => $field,
             'message' => $message,
@@ -58,20 +58,10 @@ abstract class Willow_Json_View extends Willow_Http_View
 
         /**
          * Update error stack in template
-         */
+         *//*
         $this->getTemplate()->setVar('errors', $errors);
     }
-
-    public function getValidationErrors()
-    {
-        if (($errors = $this->getTemplate()->getVar('errors')) === false)
-        {
-            $errors = array();
-        }
-
-        return $errors;
-    }
-
+*/
     public function preGenerate()
     {
     }

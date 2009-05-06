@@ -22,7 +22,7 @@ class Willow_Json_Template_Engine implements Willow_Template_Engine_Interface
 
         if (Willow_Blackboard::get('config')->app->environment === 'development')
         {
-            //$json = self::format($json, 2);
+//            $json = self::format($json, 2);
         }
 
         return $json;
