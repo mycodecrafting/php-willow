@@ -9,6 +9,7 @@ class Willow_Json_Error_View extends Willow_Http_Error_View
     protected function _setHeaders()
     {
         parent::_setHeaders();
+        $this->setTemplateDisabled(false);
         $this->_setContentType('text/json');
     }
 
