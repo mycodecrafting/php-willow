@@ -23,6 +23,7 @@ Willow_Request_Sanitized::register('asNumeric', 'Willow_Request_Sanitized_AsNume
 Willow_Request_Sanitized::register('asBoolean', 'Willow_Request_Sanitized_AsBoolean');
 Willow_Request_Sanitized::register('asString', 'Willow_Request_Sanitized_AsString');
 Willow_Request_Sanitized::register('asIpAddress', 'Willow_Request_Sanitized_AsIpAddress');
+Willow_Request_Sanitized::register('asRequest', 'Willow_Request_Sanitized_AsRequest');
 Willow_Request_Sanitized::register('default', 'Willow_Request_Sanitized_Default');
 
 /**
