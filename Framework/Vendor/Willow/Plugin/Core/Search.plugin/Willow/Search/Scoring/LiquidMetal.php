@@ -59,9 +59,20 @@ class Willow_Search_Scoring_LiquidMetal extends Willow_Search_Scoring_Abstract
         return ($scoreSum / count($scores));
     }
 
+    protected $_weightedString;
+
+    /**
+     * ...
+     */
+    public function getWeightedString()
+    {
+        return $this->_weightedString;
+    }
+
     protected function _buildScoreArray($string)
     {
         $scores = array();
+        $weightChars = str_split($string);
         $lower = strtolower($string);
         $chars = str_split(strtolower($this->_keywords));
 
@@ -72,6 +83,7 @@ class Willow_Search_Scoring_LiquidMetal extends Willow_Search_Scoring_Abstract
         {
             if (($index = strpos($lower, $c, ($lastIndex + 1))) === false)
             {
+                $this->_weightedString = $string;
                 return array(self::SCORE_NO_MATCH);
             }
 
@@ -99,10 +111,13 @@ class Willow_Search_Scoring_LiquidMetal extends Willow_Search_Scoring_Abstract
 
             $scores[$index] = self::SCORE_MATCH;
             $lastIndex = $index;
+            $weightChars[$index] = sprintf('<strong>%s</strong>', substr($string, $index, 1));
         }
 
         $trailingScore = $started ? self::SCORE_TRAILING_BUT_STARTED : self::SCORE_TRAILING;
         $this->_fillArray($scores, $trailingScore, $lastIndex + 1, count($chars));
+
+        $this->_weightedString = implode('', $weightChars);
 
         return $scores;
     }
