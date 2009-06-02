@@ -9,7 +9,7 @@ class Willow_Request_Sanitized_Default extends Willow_Request_Sanitized_Abstract
     /**
      * @var boolean
      */
-    protected $_htmlSpecialChars = true;
+    protected $_htmlSpecialChars = false;
 
     /**
      * @var boolean
