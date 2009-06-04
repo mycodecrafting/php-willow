@@ -100,4 +100,56 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
         return $this->_view;
     }
 
+    /**
+     * Forward request to another action, section, or module
+     */
+    protected function _forward(array $forwardTo)
+    {
+        /**
+         * Change in action
+         */
+        if (array_key_exists('action', $forwardTo) === true)
+        {
+            $this->getRequest()->setAction($forwardTo['action']);
+        }
+
+        /**
+         * Change in section
+         */
+        if (array_key_exists('section', $forwardTo) === true)
+        {
+            $this->getRequest()->setSection($forwardTo['section']);
+        }
+
+        /**
+         * Change in module
+         */
+        if (array_key_exists('module', $forwardTo) === true)
+        {
+            $this->getRequest()->setModule($forwardTo['module']);
+        }
+
+        /**
+         * Create an instance of actions factory
+         */
+        $factory = new Willow_Actions_Factory($this->getRequest());
+        $class = $factory->getClass();
+        unset($factory);
+
+        /**
+         * Create forwarded to actions class instance
+         */
+        $actions = new $class($this->getRequest());
+
+        /**
+         * Attach the view
+         */
+        $actions->attachView($this->getView());
+
+        /**
+         * Perform the action
+         */
+        return $actions->doAction();
+    }
+
 }
