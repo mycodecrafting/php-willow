@@ -42,7 +42,7 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
     /**
      * ...
      */
-    public function __construct($file, $delimiter = ',')
+    public function __construct($file, $delimiter = ',', $firstRowIsHeader = true)
     {
         if (($this->_filePointer = @fopen($file, 'r')) === false)
         {
@@ -56,7 +56,10 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
         /**
          * setup row headers
          */
-        $this->_headers = fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter);
+        if ($firstRowIsHeader === true)
+        {
+            $this->_headers = fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter);
+        }
     }
 
     /**
@@ -79,6 +82,14 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
     {
         $this->_rowCounter = 0;
         rewind($this->_filePointer);
+
+        /**
+         * Pull first row if headers
+         */
+        if (count($this->_headers))
+        {
+            fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter);
+        }
     }
 
     /**
@@ -90,9 +101,9 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
 
         $this->_current = new Willow_Data_Object();
 
-        foreach ($data as $i => $value)
+        foreach ($row as $i => $column)
         {
-            $this->_current->set($this->getHeader($i), $value);
+            $this->_current->set($this->getHeader($i), $column);
         }
 
         ++$this->_rowCounter;

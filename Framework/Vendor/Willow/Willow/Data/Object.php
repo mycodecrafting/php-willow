@@ -97,7 +97,7 @@ class Willow_Data_Object implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return $this->isValie($offset);
+        return $this->isValid($offset);
     }
 
     /**
@@ -129,7 +129,7 @@ class Willow_Data_Object implements ArrayAccess, IteratorAggregate
      */
     public function __isset($property)
     {
-        return $this->isValie($property);
+        return $this->isValid($property);
     }
 
     /**

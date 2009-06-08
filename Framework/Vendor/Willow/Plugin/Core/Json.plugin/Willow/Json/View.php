@@ -28,7 +28,6 @@ abstract class Willow_Json_View extends Willow_Http_View
     protected function _setDefaultHeaders()
     {
         parent::_setDefaultHeaders();
-//        $this->_setContentType('text/plain');
         $this->_setContentType('application/json');
 
         /**
