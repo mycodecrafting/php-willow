@@ -144,6 +144,14 @@ abstract class Willow_Http_View extends Willow_View_Abstract
         $this->_setHeader('X-Powered-By', 'Willow Framework; PHP/' . PHP_VERSION);
         $this->_setStatus(200);
         $this->_setContentType('text/html');
+
+        /**
+         * Send 500 header if there are validation errors
+         */
+        if (count($this->getValidationErrors()) > 0)
+        {
+            $this->_setStatus(500);
+        }
     }
 
     /**

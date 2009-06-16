@@ -29,14 +29,6 @@ abstract class Willow_Json_View extends Willow_Http_View
     {
         parent::_setDefaultHeaders();
         $this->_setContentType('application/json');
-
-        /**
-         * Send 500 header if there are validation errors
-         */
-        if (count($this->getValidationErrors()) > 0)
-        {
-            $this->_setStatus(500);
-        }
     }
 /*
     public function setValidationError($field, $message, $userCanBypass = false)
