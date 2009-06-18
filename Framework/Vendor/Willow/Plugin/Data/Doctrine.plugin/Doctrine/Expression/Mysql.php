@@ -150,7 +150,13 @@ class Doctrine_Expression_Mysql extends Doctrine_Expression_Driver
     public function fulltext_search($column, $search)
     {
         $column = $this->getIdentifier($column);
-        return 'MATCH(' . $column . ') AGAINST(' . $search . ' IN BOOLEAN MODE)';
+        return 'MATCH(' . $column . ') AGAINST(' . $search . ')';
+    }
+
+    public function fulltext_match($column, $search)
+    {
+        $column = $this->getIdentifier($column);
+        return 'MATCH(' . $column . ') AGAINST(' . $search . ' IN BOOLEAN MODE)'; //IN BOOLEAN MODE
     }
 
 }
