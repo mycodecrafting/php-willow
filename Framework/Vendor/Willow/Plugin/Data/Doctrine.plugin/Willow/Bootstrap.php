@@ -4,7 +4,7 @@
 
 
 /**
- * Append include_path to include Doctrine & models
+ * Append include_path to include Doctrine models
  */
 Willow_Loader::appendIncludePath(
     'Vendor:Doctrine', 'App:Models', 'App:Models:generated'

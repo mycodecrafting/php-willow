@@ -152,4 +152,6 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
         return $actions->doAction();
     }
 
+    abstract protected function _redirect($redirectUri);
+
 }
