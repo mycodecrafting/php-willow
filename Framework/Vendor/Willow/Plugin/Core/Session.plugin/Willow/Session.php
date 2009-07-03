@@ -214,6 +214,14 @@ class Willow_Session implements Willow_Session_Namespace_Handler_Interface
     public static function destroy($expireCookie = true)
     {
         /**
+         * Auto start session if it's not yet started
+         */
+        if (self::isStarted() === false)
+        {
+            self::start();
+        }
+
+        /**
          * Destroy session
          */
         session_destroy();
