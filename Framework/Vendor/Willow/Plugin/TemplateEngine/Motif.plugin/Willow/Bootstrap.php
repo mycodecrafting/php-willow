@@ -11,7 +11,7 @@ Willow_Loader::loadFile('Vendor:Motif:Motif', $once = true);
 /**
  * Register the Motif engine for use with HTTP (html) protocol requests
  */
-Willow_Template::register('http', new Willow_Template_Adapter_Motif());
+Willow_Template::register('http', 'Willow_Template_Adapter_Motif');
 
 /**
  * Register custom <motif:willow:...> tags for use in Willow
