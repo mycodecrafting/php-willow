@@ -6,4 +6,4 @@
 /**
  * Register the Xml engine for use with HTTP XML protocol requests
  */
-Willow_Template::register('xml', 'Willow_Xml_Template_Engine');
+Willow_Template::register('xml', 'Willow_Template_Adapter_Motif');

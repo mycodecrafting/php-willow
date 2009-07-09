@@ -53,9 +53,10 @@ class Willow_Json_Application extends Willow_Http_Application
         $view->setError($error);
 
         /**
-         * Attach the view to the actions
+         * Create view <---> actions links
          */
         $actions->attachView($view);
+        $view->attachActions($actions);
 
         /**
          * Run the actions

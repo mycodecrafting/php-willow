@@ -16,9 +16,10 @@ class Willow_Http_Application extends Willow_Application_Abstract
         try
         {
             /**
-             * Attach the view to the actions
+             * Create view <---> actions links
              */
             $this->getActions()->attachView($this->getView());
+            $this->getView()->attachActions($this->getActions());
 
             /**
              * Run the actions
@@ -84,9 +85,10 @@ class Willow_Http_Application extends Willow_Application_Abstract
         $view->setError($error);
 
         /**
-         * Attach the view to the actions
+         * Create view <---> actions links
          */
         $actions->attachView($view);
+        $view->attachActions($actions);
 
         /**
          * Run the actions
@@ -119,9 +121,10 @@ class Willow_Http_Application extends Willow_Application_Abstract
         $view->setRedirect($redirect);
 
         /**
-         * Attach the view to the actions
+         * Create view <---> actions links
          */
         $actions->attachView($view);
+        $view->attachActions($actions);
 
         /**
          * Run the actions

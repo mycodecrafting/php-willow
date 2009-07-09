@@ -10,15 +10,9 @@ abstract class Willow_Xml_View extends Willow_Http_View
 {
 
     /**
-     * Render the view
+     * ...
      */
-    public function render()
-    {
-        $this->_setDefaultHeaders();
-        $this->_setHeaders();
-        $this->setLayout(false);
-        Willow_View_Abstract::render();
-    }
+    protected $_templateExt = 'xml';
 
     /**
      * Set the default HTTP headers
@@ -31,6 +25,8 @@ abstract class Willow_Xml_View extends Willow_Http_View
 
     public function preGenerate()
     {
+        $this->setLayout(false);
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     }
 
 }

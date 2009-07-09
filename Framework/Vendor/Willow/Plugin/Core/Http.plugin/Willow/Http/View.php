@@ -47,6 +47,11 @@ abstract class Willow_Http_View extends Willow_View_Abstract
         '505' => 'HTTP Version Not Supported',
     );
 
+    /**
+     * ...
+     */
+    protected $_templateExt = 'html';
+
 
     /**
      * set template
@@ -68,7 +73,7 @@ abstract class Willow_Http_View extends Willow_View_Abstract
         }
 
         $this->getTemplate()->setTemplate(
-            Willow_Loader::getRealPath($dataPath, $overridable = true, $ext = 'html')
+            Willow_Loader::getRealPath($dataPath, $overridable = true, $ext = $this->_templateExt)
         );
     }
 

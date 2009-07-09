@@ -150,4 +150,25 @@ abstract class Willow_View_Abstract implements Willow_View_Interface
         return $this->_validationErrors;
     }
 
+    /**
+     * ...
+     */
+    protected $_actions = null;
+
+    /**
+     * ...
+     */
+    public function attachActions(Willow_Actions_Interface $actions)
+    {
+        $this->_actions = $actions;
+    }
+
+    /**
+     * ...
+     */
+    public function getActions()
+    {
+        return $this->_actions;
+    }
+
 }

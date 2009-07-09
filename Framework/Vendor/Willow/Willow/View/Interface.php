@@ -12,5 +12,7 @@ interface Willow_View_Interface
     public function setValidationError($field, $message);
     public function preGenerate();
     public function generate();
+    public function attachActions(Willow_Actions_Interface $actions);
+    public function getActions();
 
 }
