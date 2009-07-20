@@ -74,11 +74,20 @@ abstract class Willow_View_Abstract implements Willow_View_Interface
         /**
          * Set module, section, action as template vars
          */
-        $this->getTemplate()->willow = array(
+        $willow = array(
             'module' => $this->getRequest()->getModule(),
             'section' => $this->getRequest()->getSection(),
             'action' => $this->getRequest()->getAction(),
         );
+
+        /**
+         * Set app config params as template vars
+         */
+        $willow['app'] = array(
+            'environment' => Willow_Blackboard::get('config')->app->environment,
+        );
+
+        $this->getTemplate()->willow = $willow;
 
         $this->getPlexus()->doWillowViewGenerate();
 
