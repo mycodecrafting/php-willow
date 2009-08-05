@@ -17,6 +17,8 @@ Willow_Validate::register('isUrl', 'Willow_Validate_Rule_IsUrl');
 Willow_Validate::register('matches', 'Willow_Validate_Rule_Matches');
 Willow_Validate::register('isIdenticalTo', 'Willow_Validate_Rule_IsIdenticalTo');
 Willow_Validate::register('isEqualTo', 'Willow_Validate_Rule_IsEqualTo');
+Willow_Validate::register('isTrue', 'Willow_Validate_Rule_IsTrue');
+Willow_Validate::register('isCreditCardNumber', 'Willow_Validate_Rule_IsCreditCardNumber');
 
 /**
  * @todo
