@@ -32,17 +32,35 @@ class Willow_Data_Node
     /**
      * ...
      */
-    public function __construct($name = 'root')
+    public function __construct($name = 'root', $value = null)
     {
-        $this->_name = $name;
+        $this->setNodeName($name)->setValue($value);
     }
 
     /**
      * ...
      */
-    public function getName()
+    public function getNodeName()
     {
         return $this->_name;
+    }
+
+    /**
+     * ...
+     */
+    public function setNodeName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * ...
+     */
+    public function setAttribute($name, $value)
+    {
+        $this->_attributes[$name] = $value;
+        return $this;
     }
 
     /**
@@ -80,7 +98,7 @@ class Willow_Data_Node
      */
     public function addChild(Willow_Data_Node $child)
     {
-        return $this->createChild($child->getName(), $child);
+        return $this->createChild($child->getNodeName(), $child);
     }
 
     /**
@@ -202,7 +220,7 @@ class Willow_Data_Node
      */
     public function asXml()
     {
-        $xml = sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%1\$s></%1\$s>", $this->getName());
+        $xml = sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<%1\$s></%1\$s>", $this->getNodeName());
         $element = simplexml_load_string($xml);
         return $this->_asXml($element);
     }
@@ -217,7 +235,7 @@ class Willow_Data_Node
          */
         foreach ($this->attributes() as $attribute => $value)
         {
-            $element->setAttribute($attribute, $value);
+            $element->addAttribute($attribute, $value);
         }
 
         /**
@@ -225,7 +243,17 @@ class Willow_Data_Node
          */
         foreach ($this->children() as $child)
         {
-            $child->_asXml($element->addChild($child->getName(), $child->getValue()));
+            if (is_array($child))
+            {
+                foreach ($child as $innerChild)
+                {
+                    $element->addChild($innerChild->getNodeName(), $innerChild->getValue());
+                }
+            }
+            else
+            {
+                $child->_asXml($element->addChild($child->getNodeName(), $child->getValue()));
+            }
         }
 
         return $element->asXML();

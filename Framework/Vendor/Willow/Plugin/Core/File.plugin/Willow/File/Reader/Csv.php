@@ -67,7 +67,7 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
      */
     public function getHeader($i)
     {
-        if (isset($this->_headers[$i]))
+        if (isset($this->_headers[$i]) && ($this->_headers[$i] !== ''))
         {
             return $this->_headers[$i];
         }
