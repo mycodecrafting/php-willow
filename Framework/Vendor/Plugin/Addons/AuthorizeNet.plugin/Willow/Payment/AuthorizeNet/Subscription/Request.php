@@ -100,9 +100,9 @@ class Willow_Payment_AuthorizeNet_Subscription_Request
         /**
          * Set subscription ID
          */
-        if ($this->getFuction() !== 'ARBCreateSubscriptionRequest')
+        if (($subscriptionId = $this->getParameter('subscriptionId')) !== null)
         {
-            $this->_root->setSubscriptionId($this->getParameter('subscriptionId'));
+            $this->_root->setSubscriptionId($subscriptionId);
         }
 
         /**
@@ -124,7 +124,7 @@ class Willow_Payment_AuthorizeNet_Subscription_Request
         /**
          * Set payment schedule interval
          */
-        if ($this->getFuction() === 'ARBCreateSubscriptionRequest')
+        if ($this->getFunction() === 'ARBCreateSubscriptionRequest')
         {
             $this->_root->getSubscription()->getPaymentSchedule()->getInterval()
                 ->setLength($this->getParameter('intervalLength'))
