@@ -12,6 +12,6 @@ class Willow_Payment_AuthorizeNet_Subscription_Gateway_Production extends Willow
     /**
      * ...
      */
-    protected $requestUri = 'https://api.authorize.net/xml/v1/request.api';
+    protected $_requestUri = 'https://api.authorize.net/xml/v1/request.api';
 
 }

@@ -96,7 +96,6 @@ class Willow_Payment_AuthorizeNet_Request
             $parameter = 'x_' . $this->_normalize(substr($method, 3));
             return $this->getParameter($parameter);
         }
-
     }
 
 }

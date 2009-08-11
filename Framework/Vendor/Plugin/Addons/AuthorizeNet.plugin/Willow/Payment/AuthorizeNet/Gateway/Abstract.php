@@ -17,7 +17,7 @@ abstract class Willow_Payment_AuthorizeNet_Gateway_Abstract
     /**
      * ...
      */
-    public function doAuthorizationOnly(Willow_Payment_AuthorizeNet_Request $request)
+    public function authorize(Willow_Payment_AuthorizeNet_Request $request)
     {
         $request->setType('AUTH_ONLY');
         return $this->_process($request);
