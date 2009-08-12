@@ -4,6 +4,11 @@
 
 
 /**
+ * Auto-detect line endings when reading CSV
+ */
+ini_set('auto_detect_line_endings', true);
+
+/**
  * ...
  */
 class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
