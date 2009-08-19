@@ -6,6 +6,9 @@
 class Willow_Request implements Willow_Request_Interface, Willow_Registerable_Interface, Willow_Registerable_Transient_Interface
 {
 
+    const METHOD_GET  = 'Get';
+    const METHOD_POST = 'Post';
+
     protected $_path = '';
 
     protected $_module;
