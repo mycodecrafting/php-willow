@@ -70,6 +70,19 @@ $config = Willow::getConfig();
 Willow_Blackboard::register('config', $config);
 
 /**
+ * Magic Quotes === Evil
+ */
+if ((get_magic_quotes_gpc() === 1) || (get_magic_quotes_runtime() === 1))
+{
+    if ($config->app->allowMagicQuotes !== true)
+    {
+        throw new Willow_Exception(
+            'Magic quotes are enabled, are NOT supported, and NEVER will be supported by Willow. If you dare to use them anyways, you must set app.allowMagicQuotes in your configuration as true.'
+        );
+    }
+}
+
+/**
  * Set default_charset to $config::charset
  */
 ini_set('default_charset', $config->app->charset);
