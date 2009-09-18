@@ -6,7 +6,7 @@
 /**
  * ...
  */
-class Willow_Request_Superglobal_Argv extends Willow_Requext_Abstract
+class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
 {
 
     /**
