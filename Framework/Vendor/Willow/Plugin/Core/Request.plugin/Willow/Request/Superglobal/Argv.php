@@ -29,10 +29,9 @@ class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
          */
         $args['command'] = false;
 
-        if ($this->_isArg($GLOBALS['argv'][0]) === true)
+        if ($this->_isArg($GLOBALS['argv'][1]) === false)
         {
-            $args['command'] = $GLOBALS['argv'][0];
-//            array_shift($GLOBALS['argv']);
+            $args['command'] = $GLOBALS['argv'][1];
         }
 
         /**
@@ -67,6 +66,8 @@ class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
         $this->import($args);
     }
 
+
+
     /**
      * Get the name for an arg
      *
@@ -75,12 +76,14 @@ class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
      */
     protected function _getArgName($arg)
     {
+		$argName = substr($arg, 1);
+
 		if ($this->_isLongArg($arg) === true)
 		{
-			return substr($arg, 2);
+			$argName = substr($arg, 2);
 		}
 
-		return substr($arg, 1);
+        return str_replace('-', '_', strtolower($argName));
     }
 
     /**
