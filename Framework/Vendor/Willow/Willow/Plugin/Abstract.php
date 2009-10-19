@@ -14,41 +14,61 @@ abstract class Willow_Plugin_Abstract
 	/**
 	 * @var Willow_Plexus The current {@link Willow_Plexus} that has loaded this Plugin.
 	 */
-	public $plexus = null;
+	public $_plexus = null;
 
 	/**
 	 * @var object Object The current object being plugged into.
 	 */
 	protected $_baseObject = null;
 
-
+    /**
+     * ...
+     */
 	const REPLACED_METHOD = 'Indicates that a method with void return has been replaced';
-
 
 	/**
 	 * Load the current object being plugged into.
 	 * @param object $object The current object being plugged into.
 	 */
-	public function loadBaseObject($object)
+	public function setBaseObject($object)
 	{
 		$this->_baseObject = $object;
 	}
+
+    /**
+     * ...
+     */
+    public function getBaseObject()
+    {
+        return $this->_baseObject;
+    }
 
 	/**
 	 * Load the current {@link Willow_Plexus} that has loaded this Plugin.
 	 * @param Plexus $object The current {@link Willow_Plexus} that has loaded this Plugin.
 	 */
-	public function loadPlexus(Willow_Plexus $plexus)
+	public function setPlexus(Willow_Plexus $plexus)
 	{
-		$this->plexus = $plexus;
+		$this->_plexus = $plexus;
 	}
 
-	private function __call($method, array $args)
+    /**
+     * ...
+     */
+    public function getPlexus()
+    {
+        return $this->_plexus;
+    }
+
+    /**
+     * ...
+     */
+    public function __call($method, array $args)
 	{
-		if ((strpos($method, 'do') === 0) && ($this->plexus !== null))
+		if ((strpos($method, 'do') === 0) && ($this->getPlexus() !== null))
 		{
 			array_unshift($args, $this);
-			$return = call_user_func_array(array($this->plexus, $method), $args);
+			$return = call_user_func_array(array($this->getPlexus(), $method), $args);
 			return $return;
 		}
 	}

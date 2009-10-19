@@ -1,0 +1,18 @@
+# Add some config options to the email branch for Swift
+email:
+  swift:
+
+    # smpt | sendmail | mail
+    transport:            sendmail
+
+    # sendmail config
+    sendmail:
+      command:            "/usr/sbin/sendmail -bs"
+
+    # smtp config
+    smtp:
+      host:               localhost
+      port:               25
+      username:           admin@localhost
+      password:           password
+      encryption:         ~

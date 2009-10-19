@@ -117,7 +117,7 @@ final class Willow
         /**
          * load any configs from plugins
          */
-        foreach (Willow_Plugin::getConfigs() as $config)
+        foreach (Willow_Plugin_Loader::getConfigs() as $config)
         {
             $conf->assimilate($config);
         }

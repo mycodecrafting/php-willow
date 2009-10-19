@@ -1,0 +1,4 @@
+# add email branch to config
+email:
+  senderEmail:          admin@localhost
+  senderName:           Your Friendly Neighborhood Admin

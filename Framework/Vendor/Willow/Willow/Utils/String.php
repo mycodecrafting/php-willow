@@ -38,10 +38,17 @@ class Willow_Utils_String
         return $this->_string;
     }
 
-    public function toCamelCase()
+    public function toCamelCase($lower = true)
     {
-        $string = strtolower($this->_string);
+        $string = $this->_string;
+
+        if ($lower === true)
+        {
+            $string = strtolower($string);
+        }
+
         $string = str_replace('_', '-', $string);
+
         return implode('', array_map('ucfirst', explode('-', $string)));
     }
 

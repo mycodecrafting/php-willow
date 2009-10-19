@@ -152,6 +152,14 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
         return $actions->doAction();
     }
 
+    /**
+     * Send an email from action
+     */
+    protected function _sendEmail()
+    {
+        
+    }
+
     abstract protected function _redirect($redirectUri);
 
 }

@@ -116,7 +116,7 @@ Willow_Utils::register('number', 'Willow_Utils_Number');
 /**
  * Load framework plugins
  */
-Willow_Plugin::loadAll(
+Willow_Plugin_Loader::loadAll(
     $exceptions = $config->plugins->disabled
 );
 
