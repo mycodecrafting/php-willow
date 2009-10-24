@@ -69,14 +69,8 @@ class Willow_Template implements Willow_Registerable_Interface
      */
     public function getLayout()
     {
-        return $this->_layout;
-    }
+        $layout = $dataPath = $this->_layout;
 
-    /**
-     * ...
-     */
-    public function setLayout($dataPath)
-    {
         if ($dataPath !== false)
         {
             if (($layout = Willow_Loader::getRealPath($dataPath, $overridable = true, $ext = 'html')) === false)
@@ -87,12 +81,16 @@ class Willow_Template implements Willow_Registerable_Interface
                 ));
             }
         }
-        else
-        {
-            $layout = $dataPath;
-        }
 
-        $this->_layout = $layout;
+        return $layout;
+    }
+
+    /**
+     * ...
+     */
+    public function setLayout($dataPath)
+    {
+        $this->_layout = $dataPath;
     }
 
     /**
@@ -100,7 +98,7 @@ class Willow_Template implements Willow_Registerable_Interface
      */
     protected function _buildLayout($content)
     {
-		$this->_engine->setTemplate($this->_layout);
+		$this->_engine->setTemplate($this->getLayout());
 
         if (($page = $this->_engine->getVar('page')) === false)
         {
