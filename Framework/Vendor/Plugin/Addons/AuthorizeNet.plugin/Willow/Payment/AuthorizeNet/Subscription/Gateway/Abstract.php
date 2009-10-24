@@ -35,6 +35,15 @@ abstract class Willow_Payment_AuthorizeNet_Subscription_Gateway_Abstract
     /**
      * ...
      */
+    public function cancelSubscription(Willow_Payment_AuthorizeNet_Subscription_Request $request)
+    {
+        $request->setFunction('ARBCancelSubscriptionRequest');
+        return $this->_process($request);
+    }
+
+    /**
+     * ...
+     */
     protected function _process(Willow_Payment_AuthorizeNet_Subscription_Request $request)
     {
         $conn = curl_init($this->_requestUri);
