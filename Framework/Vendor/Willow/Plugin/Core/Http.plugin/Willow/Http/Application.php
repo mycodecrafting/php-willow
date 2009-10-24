@@ -65,18 +65,40 @@ class Willow_Http_Application extends Willow_Application_Abstract
         $this->getCorePlexus()->doWillowHttpApplicationStop();
     }
 
+    /**
+     * ...
+     */
+    public function getErrorActions()
+    {
+        return new Willow_Http_Error_Actions($this->getRequest());
+    }
 
+    /**
+     * ...
+     */
+    public function getErrorView()
+    {
+        return new Willow_Http_Error_View($this->getRequest());
+    }
+
+    /**
+     * ...
+     */
     protected function _executeHttpError(Willow_Http_Error $error)
     {
         /**
          * Create HTTP error actions instance
          */
-        $actions = new Willow_Http_Error_Actions($this->getRequest());
+        $actions = $this->getPlexus()->doGetErrorActions($this);
 
         /**
          * Create HTTP error view instance
          */
-        $view = new Willow_Http_Error_View($this->getRequest());
+        $view = $this->getPlexus()->doGetErrorView($this);
+
+        /**
+         * @todo check type of actions and view
+         */
 
         /**
          * Setup error

@@ -70,6 +70,16 @@ abstract class Willow_Application_Abstract
     }
 
     /**
+     * Get the plexus object
+     *
+     * @return Willow_Plexus
+     */
+    public function getPlexus()
+    {
+        return $this->_corePlexus;
+    }
+
+    /**
      * Get the core plexus object
      *
      * @return Plexus
