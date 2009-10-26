@@ -25,10 +25,11 @@ class Willow_Session_Security_Fingerprint extends Willow_Session_Security_Abstra
         elseif ($this->_session->fingerprint !== $this->generateFingerprint())
         {
             Willow_Session::destroy();
-
+/*
             throw new Willow_Session_Security_Exception(
                 ''
             );
+*/
         }
     }
 
