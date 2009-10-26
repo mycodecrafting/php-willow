@@ -146,20 +146,20 @@ class Willow_Loader
                 $pluginType = array_shift($dataPathArray);
                 $pluginName = array_shift($dataPathArray);
 
+                $pluginDataPath = sprintf(
+                    'Plugin:%s:%s.plugin:%s', $pluginType, $pluginName, implode(':', $dataPathArray)
+                );
+
                 /**
                  * Depployment overriding
                  */
                 if ($overridable === true)
                 {
-                    if (($path = self::isOverriden($dataPathArray)) !== false)
+                    if (($path = self::isOverriden($pluginDataPath)) !== false)
                     {
                         return $path;
                     }
                 }
-
-                $pluginDataPath = sprintf(
-                    'Plugin:%s:%s.plugin:%s', $pluginType, $pluginName, implode(':', $dataPathArray)
-                );
 
                 /**
                  * Check for vendor plugin
