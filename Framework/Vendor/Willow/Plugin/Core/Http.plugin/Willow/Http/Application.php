@@ -11,7 +11,7 @@ class Willow_Http_Application extends Willow_Application_Abstract
         /**
          * Run core plexus hooks
          */
-        $this->getCorePlexus()->doWillowHttpApplicationStart();
+        $this->getPlexus()->doStart($this);
 
         try
         {
@@ -62,7 +62,21 @@ class Willow_Http_Application extends Willow_Application_Abstract
         /**
          * Run core plexus hooks
          */
-        $this->getCorePlexus()->doWillowHttpApplicationStop();
+        $this->getPlexus()->doStop($this);
+    }
+
+    /**
+     * ...
+     */
+    public function start()
+    {
+    }
+
+    /**
+     * ...
+     */
+    public function stop()
+    {
     }
 
     /**
