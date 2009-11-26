@@ -30,29 +30,7 @@ abstract class Willow_Json_View extends Willow_Http_View
         parent::_setDefaultHeaders();
         $this->_setContentType('application/json');
     }
-/*
-    public function setValidationError($field, $message, $userCanBypass = false)
-    {
-        if (($errors = $this->getTemplate()->getVar('errors')) === false)
-        {
-            $errors = array();
-        }
 
-        /**
-         * Push error message to error stack
-         *//*
-        $errors[] = array(
-            'field' => $field,
-            'message' => $message,
-            'userCanBypass' => $userCanBypass,
-        );
-
-        /**
-         * Update error stack in template
-         *//*
-        $this->getTemplate()->setVar('errors', $errors);
-    }
-*/
     public function preGenerate()
     {
     }
