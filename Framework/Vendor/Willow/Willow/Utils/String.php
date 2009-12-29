@@ -105,6 +105,14 @@ class Willow_Utils_String
         return mb_strlen($this->_string, 'UTF-8');
     }
 
+    /**
+     * ...
+     */
+    public function transform(array $transformations)
+    {
+        return str_replace(array_keys($transformations), array_values($transformations), $this->_string);
+    }
+
     public function __get($property)
     {
         if (method_exists($this, $property) === true)

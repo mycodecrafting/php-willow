@@ -23,6 +23,7 @@ class Willow_Email_Message
         'body'      => null,
         'altBody'   => null,
         'priority'  => null,
+        'embeded'   => array(),
     );
 
     /**
@@ -204,6 +205,24 @@ class Willow_Email_Message
     public function getPriority()
     {
         return $this->_message['priority'];
+    }
+
+    /**
+     * ...
+     */
+    public function embed($file)
+    {
+        $id = '%' . sha1($file) . '%';
+        $this->_message['embedded'][$id] = $file;
+        return $id;
+    }
+
+    /**
+     * ...
+     */
+    public function getEmbeded()
+    {
+        return $this->_message['embedded'];
     }
 
 }
