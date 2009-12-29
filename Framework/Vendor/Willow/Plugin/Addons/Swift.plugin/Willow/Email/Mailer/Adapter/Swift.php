@@ -26,8 +26,30 @@ class Willow_Email_Mailer_Adapter_Swift implements Willow_Email_Mailer_Interface
          */
         $swiftMessage = Swift_Message::newInstance($message->getSubject())
             ->setFrom($message->getSender())
-            ->setTo($message->getTo())
-            ->setBody($message->getBody());
+            ->setTo($message->getTo());
+
+        $body = $message->getBody();
+
+        /**
+         * Handle embeded files
+         */
+        foreach ($message->getEmbeded() as $id => $file)
+        {
+            $body = str_replace($id, $swiftMessage->embed(Swift_EmbeddedFile::fromPath($file)), $body);
+        }
+
+        /**
+         * Do we have an alt body?
+         */
+        if ($message->getAltBody() !== null)
+        {
+            $swiftMessage->setBody($body, 'text/html')
+                         ->addPart($message->getAltBody(), 'text/plain');
+        }
+        else
+        {
+            $swiftMessage->setBody($body);
+        }
 
         /**
          * Send the message
