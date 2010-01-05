@@ -23,7 +23,7 @@ class Willow_Email_Message
         'body'      => null,
         'altBody'   => null,
         'priority'  => null,
-        'embeded'   => array(),
+        'embedded'  => array(),
     );
 
     /**
