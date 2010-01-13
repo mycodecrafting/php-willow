@@ -71,6 +71,14 @@ class Willow_Template_Adapter_Motif implements Willow_Template_Engine_Interface
     /**
      * ...
      */
+    public function setVars(array $vars)
+    {
+        $this->_template->setVars($vars);
+    }
+
+    /**
+     * ...
+     */
     public function import(array $vars)
     {
         $this->_template->setVars(array_merge($this->getVars(), $vars));

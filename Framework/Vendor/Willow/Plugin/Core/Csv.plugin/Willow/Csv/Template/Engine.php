@@ -62,6 +62,14 @@ class Willow_Csv_Template_Engine implements Willow_Template_Engine_Interface
     /**
      * ...
      */
+    public function setVars(array $vars)
+    {
+        $this->_vars = $vars;
+    }
+
+    /**
+     * ...
+     */
     public function import(array $vars)
     {
         $this->_vars = array_merge($this->_vars, $vars);

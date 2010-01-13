@@ -39,6 +39,14 @@ interface Willow_Template_Engine_Interface
      */
     public function setVar($name, $value = null);
 
+    /**
+     * ...
+     */
+    public function setVars(array $vars);
+
+    /**
+     * ...
+     */
     public function import(array $vars);
 
     /**
