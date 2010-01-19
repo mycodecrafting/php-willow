@@ -20,6 +20,24 @@ class Willow_Email_Mailer implements Willow_Email_Mailer_Interface, Willow_Regis
     }
 
     /**
+     * Specify a specific transport to use
+     */
+    public function useTransport($transport)
+    {
+        $this->getRegistered('default')->useTransport($transport);
+        return $this;
+    }
+
+    /**
+     * ...
+     */
+    public function resetTransport()
+    {
+        $this->getRegistered('default')->resetTransport();
+        return $this;
+    }
+
+    /**
      * @var array alias to class mapping
      */
     protected static $_classMap = array();

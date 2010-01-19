@@ -60,13 +60,41 @@ class Willow_Email_Mailer_Adapter_Swift implements Willow_Email_Mailer_Interface
     /**
      * ...
      */
+    protected $_transport = null;
+
+    /**
+     * Specify a specific transport to use
+     */
+    public function useTransport($transport)
+    {
+        $this->_transport = $transport;
+        return $this;
+    }
+
+    /**
+     * ...
+     */
+    public function resetTransport()
+    {
+        $this->_transport = null;
+        return $this;
+    }
+
+    /**
+     * ...
+     */
     protected function _getTransport()
     {
         $config = Willow_Blackboard::get('config')->email;
 
-        switch ($config->swift->transport)
+        if ($this->_transport === null)
         {
-            case 'smtp':
+            $this->_transport = $config->swift->transport;
+        }
+
+        switch ($this->_transport)
+        {
+            case Willow_Email_Transport::SMTP:
                 $transport = Swift_SmtpTransport::newInstance($config->swift->smtp->host, $config->swift->smtp->port)
                     ->setUsername($config->swift->smtp->username)
                     ->setPassword($config->swift->smtp->password);
@@ -77,11 +105,11 @@ class Willow_Email_Mailer_Adapter_Swift implements Willow_Email_Mailer_Interface
                 }
                 break;
 
-            case 'sendmail':
+            case Willow_Email_Transport::SENDMAIL:
                 $transport = Swift_SendmailTransport::newInstance($config->swift->sendmail->command);
                 break;
 
-            case 'mail':
+            case Willow_Email_Transport::MAIL:
             default:
                 $transport = Swift_MailTransport::newInstance();
                 break;

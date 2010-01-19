@@ -16,4 +16,13 @@ interface Willow_Email_Mailer_Interface
      */
     public function send(Willow_Email_Message $message);
 
+    /**
+     * Specify a specific transport to use
+     */
+    public function useTransport($transport);
+
+    /**
+     * ...
+     */
+    public function resetTransport();
 }
