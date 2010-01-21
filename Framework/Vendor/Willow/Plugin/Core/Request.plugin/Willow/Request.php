@@ -158,6 +158,14 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     /**
      * ...
      */
+    public function getPath()
+    {
+        return $this->_path;
+    }
+
+    /**
+     * ...
+     */
     protected $_defaults = array(
         'module' => 'Default',
         'section' => 'Index',

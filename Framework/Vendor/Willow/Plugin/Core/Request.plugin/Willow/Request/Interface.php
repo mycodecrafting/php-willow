@@ -47,4 +47,6 @@ interface Willow_Request_Interface
 
     public function setProtocol($protocol);
 
+    public function getPath();
+
 }
