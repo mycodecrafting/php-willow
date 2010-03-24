@@ -11,17 +11,6 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 
 /**
- * Check PHP Version is compatible
- */
-if (version_compare(PHP_VERSION, '5.2.3', 'ge') === false)
-{
-    throw new Exception(sprintf(
-        'Incompatible PHP version detected. Expecting a version >= 5.2.3 but found version %s',
-        PHP_VERSION
-    ));
-}
-
-/**
  * DIRECTORY_SEPARATOR is kind of long; rename to a shorter constant
  */
 if (defined('DS') === false)
@@ -53,6 +42,23 @@ if (defined('APPLICATION_PATH'))
 else
 {
     require dirname(__FILE__) . DS . 'Willow.php';
+}
+
+/**
+ * Load Version
+ */
+require_once Willow::getRoot() . DS . 'Vendor' . DS . 'Willow' . DS . 'Willow' . DS . 'Version.php';
+
+/**
+ * Check PHP Version is compatible
+ */
+if (version_compare(PHP_VERSION, Willow_Version::getPhpDep(), 'ge') === false)
+{
+    throw new Exception(sprintf(
+        'Incompatible PHP version detected. Expecting a version >= %s but found version %s',
+        Willow_Version::getPhpDep(),
+        PHP_VERSION
+    ));
 }
 
 /**

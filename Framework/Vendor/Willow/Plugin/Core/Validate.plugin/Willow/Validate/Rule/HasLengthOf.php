@@ -40,7 +40,7 @@ class Willow_Validate_Rule_HasLengthOf extends Willow_Validate_Rule_Abstract
      */
     public function validate($value)
     {
-        $length = Willow::utils()->string($value)->length();
+        $length = Willow_Utils::string($value)->length();
 
         /**
          * must not be less than $min

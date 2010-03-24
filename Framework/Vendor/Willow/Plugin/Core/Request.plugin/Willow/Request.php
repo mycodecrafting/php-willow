@@ -238,7 +238,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
      */
     protected function _normalize($string)
     {
-        return Willow::utils()->string($string)->toCamelCase();
+        return Willow_Utils::string($string)->toCamelCase($lower = false);
     }
 
     /**

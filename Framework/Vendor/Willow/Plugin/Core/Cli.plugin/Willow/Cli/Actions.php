@@ -69,7 +69,7 @@ abstract class Willow_Cli_Actions extends Willow_Actions_Abstract
         /**
          * Return $userInput as autotyped
          */
-        return Willow::utils()->string($userInput)->autoType($stripQuotes = true);
+        return Willow_Utils::string($userInput)->autoType($stripQuotes = true);
     }
 
     /**

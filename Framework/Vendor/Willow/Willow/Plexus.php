@@ -167,7 +167,7 @@ class Willow_Plexus
      */
     protected function _normalize($string)
     {
-        return Willow::utils()->string($string)->toCamelCase($lower = false);
+        return Willow_Utils::string($string)->toCamelCase($lower = false);
     }
 
     /**

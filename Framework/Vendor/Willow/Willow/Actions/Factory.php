@@ -34,7 +34,7 @@ class Willow_Actions_Factory
                 $this->_generateClass();
             }
         }
-        
+
         return $this->_getClassName();
     }
 

@@ -58,9 +58,10 @@ final class Willow_Version
     const MAJOR_REV = 1;
     const MINOR_REV = 0;
     const BUG_REV   = 0;
-    const STAGE     = 'final';
-    const STAGE_REV = 0;
+    const STAGE     = 'beta';
+    const STAGE_REV = 4;
     const REL_DATE  = '$Date$';
+    const PHP_DEP   = '5.3.1';
 
     public static function getVersion()
     {
@@ -83,6 +84,11 @@ final class Willow_Version
     public static function getVersionWithDate()
     {
         return self::getVersion() . ' (' . self::getDate() . ')';
+    }
+
+    public static function getPhpDep()
+    {
+        return self::PHP_DEP;
     }
 
 }

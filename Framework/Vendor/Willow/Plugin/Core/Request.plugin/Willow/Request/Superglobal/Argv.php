@@ -57,8 +57,7 @@ class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
              */
 			else
 			{
-				$args[$this->_getArgName($arg)] = Willow::utils()
-				    ->string($GLOBALS['argv'][$i + 1])
+				$args[$this->_getArgName($arg)] = Willow_Utils::string($GLOBALS['argv'][$i + 1])
 				    ->autoType($stripQuotes = true);
 			}
         }

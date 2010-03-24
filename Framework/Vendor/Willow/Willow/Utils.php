@@ -12,7 +12,14 @@ class Willow_Utils implements Willow_Registerable_Interface
     /**
      * @var array alias to class mapping
      */
-    protected static $_classMap = array();
+    protected $_classMap = array();
+
+    /**
+     * Prevent public construction of object
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Register a class under an alias
@@ -23,7 +30,7 @@ class Willow_Utils implements Willow_Registerable_Interface
      */
     public static function register($alias, $class)
     {
-        self::$_classMap[$alias] = $class;
+        self::_instance()->_classMap[$alias] = $class;
     }
 
     /**
@@ -38,9 +45,9 @@ class Willow_Utils implements Willow_Registerable_Interface
         /**
          * Alias is registered
          */
-        if (array_key_exists($alias, self::$_classMap))
+        if (array_key_exists($alias, self::_instance()->_classMap))
         {
-            return self::$_classMap[$alias];
+            return self::_instance()->_classMap[$alias];
         }
 
         /**
@@ -56,19 +63,40 @@ class Willow_Utils implements Willow_Registerable_Interface
      */
     protected $_reflection = array();
 
-    public function __call($method, $args)
+    /**
+     * ...
+     */
+    public static function __callStatic($method, $args)
     {
-        $class = self::getRegistered($method);
+        $class = self::_instance()->getRegistered($method);
 
         /**
          * Reflection is expensive; let's not do it more than we have to
          */
-        if (array_key_exists($class, $this->_reflection) === false)
+        if (array_key_exists($class, self::_instance()->_reflection) === false)
         {
-            $this->_reflection[$class] = new ReflectionClass($class);
+            self::_instance()->_reflection[$class] = new ReflectionClass($class);
         }
 
-        return $this->_reflection[$class]->newInstanceArgs($args);
+        return self::_instance()->_reflection[$class]->newInstanceArgs($args);
+    }
+
+    /**
+     * @var Instance of self
+     */
+    private static $_instance = null;
+
+    /**
+     * Get the singleton instance of self
+     */
+    private static function _instance()
+    {
+        if ((self::$_instance instanceof self) === false)
+        {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
     }
 
 }

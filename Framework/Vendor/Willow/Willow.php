@@ -187,48 +187,6 @@ final class Willow
     }
 
     /**
-     * @var WillowUtils
-     */
-    private $_utils = null;
-
-    /**
-     * Shorthand access to utility classes
-     */
-
- // Willow::utils()->string('Yes')->autoType()
- // Willow::utils()->string('string')->operation1->operation2->operation3()
- // Willow::utils()->password()->generate(8)
- // Willow::utils()->password($password)->encrypt()
- // Willow::utils()->password($password)->validate($encrypted)
-
-/**
- * move to Willow_Utils ?  __callStatic() not available until PHP 5.3.0
- *
- * Willow_Utils::string('Yes')->autoType();
- */
-
-    public static function utils()
-    {
-        if ((self::_instance()->_utils instanceof Willow_Utils) === false)
-        {
-            self::_instance()->_utils = new Willow_Utils();
-        }
-
-        return self::_instance()->_utils;
-    }
-
-    /**
-     * Default bootstrap framework routine
-     *
-     * @return void
-     */
-    public static function bootstrap()
-    {
-
-
-    }
-
-    /**
      * @var Willow Instance of self
      */
     private static $_instance = null;

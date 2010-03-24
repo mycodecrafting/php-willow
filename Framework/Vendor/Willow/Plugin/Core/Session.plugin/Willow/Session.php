@@ -101,12 +101,12 @@ class Willow_Session implements Willow_Session_Namespace_Handler_Interface
         {
 			ini_set('session.use_only_cookies', '1');
 
-            Willow::utils()->cookie('wf_test_cookie')->setValue('1');
+            Willow_Utils::cookie('wf_test_cookie')->setValue('1');
 
             /**
              * check if test cookie exists  
              */
-            if (Willow::utils()->cookie('wf_test_cookie')->getValue() === '1')
+            if (Willow_Utils::cookie('wf_test_cookie')->getValue() === '1')
             {
                 self::_start();
             }
