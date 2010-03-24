@@ -48,6 +48,7 @@ if (defined('NL') === false)
 if (defined('APPLICATION_PATH'))
 {
     require APPLICATION_PATH . DS . '..' . DS . 'Vendor' . DS . 'Willow' . DS . 'Willow.php';
+    Willow::setAppDir(APPLICATION_PATH);
 }
 else
 {

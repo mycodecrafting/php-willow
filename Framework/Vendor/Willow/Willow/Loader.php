@@ -271,7 +271,10 @@ class Willow_Loader
      */
     public static function buildPath($dataPath, $ext = false)
     {
-        $path = Willow::getRoot() . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, explode(':', $dataPath));
+        $path = Willow::getRoot() . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, array_map(
+            create_function('$part', 'return ($part === "App" ? Willow::getAppDir() : $part);'),
+            explode(':', $dataPath)
+        ));
 
         if ($ext !== false)
         {

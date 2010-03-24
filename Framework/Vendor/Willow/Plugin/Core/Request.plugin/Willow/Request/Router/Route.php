@@ -126,7 +126,7 @@ class Willow_Request_Router_Route implements Willow_Request_Router_Route_Interfa
 
     protected function _getSegmentsFromRoute($route)
     {
-        return explode('/', $route);
+        return preg_split('/[\/,]/', $route);
     }
 
     protected function _isUriParam($var)

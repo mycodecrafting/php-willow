@@ -215,7 +215,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     {
         $index = intval($index) - 1;
 
-        $segments = explode('/', $this->_path);
+        $segments = preg_split('/[\/,]/', $this->_path);
 
         if (isset($segments[$index]) && ($segments[$index] !== ''))
         {
@@ -230,7 +230,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
      */
     public function segments()
     {
-        return explode('/', $this->_path);
+        return preg_split('/[\/,]/', $this->_path);
     }
 
     /**

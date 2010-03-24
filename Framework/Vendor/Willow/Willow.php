@@ -81,6 +81,27 @@ final class Willow
     }
 
     /**
+     * ...
+     */
+    private $_appDir = 'App';
+
+    /**
+     * ...
+     */
+    public static function setAppDir($dir)
+    {
+        self::_instance()->_appDir = basename(realpath($dir));
+    }
+
+    /**
+     * ...
+     */
+    public static function getAppDir()
+    {
+        return self::_instance()->_appDir;
+    }
+
+    /**
      * @var Willow_Yaml_Node Application config
      */
     private $_config;

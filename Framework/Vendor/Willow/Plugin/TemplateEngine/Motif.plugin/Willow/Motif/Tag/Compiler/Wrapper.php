@@ -35,9 +35,9 @@ class Willow_Motif_Tag_Compiler_Wrapper extends Motif_Tag_Compiler_Abstract
     /**
      * Compile tag matches to native PHP code
      */
-    abstract protected function _compileMatches()
+    protected function _compileMatches()
     {
-        foreach ($this->tagMatches as $match)
+        foreach ($this->_tagMatches as $match)
         {
             if ($this->getAttribute('disabled'))
             {
@@ -59,7 +59,7 @@ class Willow_Motif_Tag_Compiler_Wrapper extends Motif_Tag_Compiler_Abstract
 
 
         	$code = '' .
-        	    ''\');' . NL .
+        	    '\');' . NL .
         		"Willow_Blackboard::get('template')->setWrapper($src);" . NL .
         		'echo(\'';
 
