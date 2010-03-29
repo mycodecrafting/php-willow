@@ -41,7 +41,7 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
             case 'POST':
             case 'DELETE':
             case 'PUT':
-                $this->_method = $this->_normalize($this->server()->request_method);
+                $this->_method = $this->_normalize($this->server()->request_method, $lower = true);
                 break;
 
             default:
@@ -236,9 +236,9 @@ class Willow_Request implements Willow_Request_Interface, Willow_Registerable_In
     /**
      * Normalize strings-with-dashes_or_underscores to StringsWithCamelCase
      */
-    protected function _normalize($string)
+    protected function _normalize($string, $lower = false)
     {
-        return Willow_Utils::string($string)->toCamelCase($lower = false);
+        return Willow_Utils::string($string)->toCamelCase($lower);
     }
 
     /**
