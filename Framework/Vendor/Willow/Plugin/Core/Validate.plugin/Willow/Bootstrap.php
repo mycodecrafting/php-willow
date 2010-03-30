@@ -19,8 +19,4 @@ Willow_Validate::register('isIdenticalTo', 'Willow_Validate_Rule_IsIdenticalTo')
 Willow_Validate::register('isEqualTo', 'Willow_Validate_Rule_IsEqualTo');
 Willow_Validate::register('isTrue', 'Willow_Validate_Rule_IsTrue');
 Willow_Validate::register('isCreditCardNumber', 'Willow_Validate_Rule_IsCreditCardNumber');
-
-/**
- * @todo
- */
-//Willow_Validate::register('isInRange', 'FlexieIsInRangeValidator');
+Willow_Validate::register('isInRange', 'Willow_Validate_Rule_IsInRange');

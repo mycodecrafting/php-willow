@@ -17,6 +17,7 @@ Willow_Template::register('http', 'Willow_Template_Adapter_Motif');
  * Register custom <motif:willow:...> tags for use in Willow
  */
 Motif_Engine::register('willow:wrapper', 'Willow_Motif_Tag_Compiler_Wrapper');
+Motif_Engine::register('willow:utils:number', 'Willow_Motif_Tag_Compiler_Utils_Number');
 
 /**
  * Set the directory to cache compiled templates

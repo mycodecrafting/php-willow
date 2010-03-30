@@ -49,4 +49,33 @@ class Willow_Utils_Number
         return sqrt($this->_number);
     }
 
+    public function toFraction()
+    {
+        if (floor($this->_number) == $this->_number)
+        {
+            return $this->_number;
+        }
+
+        $integer = floor($this->_number);
+        $decimal = $this->_number - $integer;
+        $numerator = 1;
+        $denominator = (10e15 - 1) / ($decimal * 10e15);
+        $remainder = $denominator - floor($denominator);
+        $factor = $remainder < 1e-10 ? 1 : (10e15 - 1) / ($remainder * 10e15);
+
+        $numerator *= $factor;
+        $denominator *= $factor;
+
+        $factorRemainder = $factor - floor($factor);
+
+        if ($factorRemainder > 1e-10)
+        {
+            $factor = (10e15 - 1) / ($factorRemainder * 10e15);
+            $numerator *= $factor;
+            $denominator *= $factor;
+        }
+
+        return ($integer ? $integer . ' ' : '') . round($numerator) . '/' . round($denominator);
+    }
+
 }

@@ -54,7 +54,7 @@
 final class Willow_Version
 {
 
-    const APP_NAME  = 'Willow Framework';
+    const APP_NAME  = 'Willow Sprout';
     const MAJOR_REV = 1;
     const MINOR_REV = 0;
     const BUG_REV   = 0;
