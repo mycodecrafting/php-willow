@@ -49,7 +49,58 @@ class Willow_Utils_Number
         return sqrt($this->_number);
     }
 
-    public function toFraction()
+    /**
+     * Based on he algorithm presented in http://homepage.smc.edu/kennedy_john/DEC2FRAC.PDF
+     */
+    public function toFraction($precision = 5.0E-7)
+    {
+        $decimalSign = $this->_number < 0 ? -1 : 1;
+
+        $decimal = abs($this->_number);
+
+        if ($decimal == ($integer = floor($decimal)))
+        {
+            return $decimal * $decimalSign;
+        }
+
+        $decimal = $decimal - $integer;
+
+        /**
+         * Cannot handle anything less than 1/9999999999999999999
+         */
+        if ($decimal < 1.0E-19)
+        {
+            return $decimalSign . '/9999999999999999999';
+        }
+
+        /**
+         * Cannot handle anything greater than 9,999,999,999,999,999,999/1
+         */
+        if ($decimal > 1.0E+19)
+        {
+            return '9999999999999999999';
+        }
+
+        $z = $decimal;
+        $prevDenominator = 0;
+        $denominator = 1;
+
+        do
+        {
+            $z = 1 / ($z - intval($z));
+            $scratch = $denominator;
+            $denominator = $denominator * intval($z) + $prevDenominator;
+            $prevDenominator = $scratch;
+            $numerator = intval($decimal * $denominator + 0.5);
+        }
+        while ( (abs($decimal - ($numerator / $denominator)) >= $precision) && ($z != intval($z)) );
+
+        $numerator = $numerator * $decimalSign;
+
+        return ($integer ? $integer . ' ' : '') . $numerator . '/' . $denominator;
+    }
+
+    public function toFractionOld()
     {
         if (floor($this->_number) == $this->_number)
         {

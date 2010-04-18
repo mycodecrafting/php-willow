@@ -70,6 +70,38 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
     /**
      * ...
      */
+    public function getRows($limit = 200)
+    {
+        $collection = new Willow_Data_Collection();
+
+        $count = ($limit > 0 ? 0 : -1);
+
+        while ($count < $limit && ($row = fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter)) !== false)
+        {
+            if ((count($row) === 1) && ($row[0] === null))
+            {
+                continue;
+            }
+
+            $data = $collection->addNew();
+
+            foreach ($row as $i => $column)
+            {
+                $data->set($this->getHeader($i), $column);
+            }
+
+            if ($limit > 0)
+            {
+                ++$count;
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * ...
+     */
     public function getHeader($i)
     {
         if (isset($this->_headers[$i]) && ($this->_headers[$i] !== ''))
@@ -78,6 +110,14 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
         }
 
         return $i;
+    }
+
+    /**
+     * ...
+     */
+    public function hasColumn($name)
+    {
+        return in_array($name, $this->_headers);
     }
 
     /**
@@ -102,17 +142,6 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
      */
     public function current()
     {
-        $row = fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter);
-
-        $this->_current = new Willow_Data_Object();
-
-        foreach ($row as $i => $column)
-        {
-            $this->_current->set($this->getHeader($i), $column);
-        }
-
-        ++$this->_rowCounter;
-
         return $this->_current;
     }
 
@@ -129,7 +158,7 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
      */
     public function next()
     {
-        return (feof($this->_filePointer) === false);
+        ++$this->_rowCounter;
     }
 
     /**
@@ -137,10 +166,25 @@ class Willow_File_Reader_Csv extends Willow_File_Reader_Abstract
      */
     public function valid()
     {
-        if ($this->next() === false)
+        if (feof($this->_filePointer) === true)
         {
             fclose($this->_filePointer);
             return false;
+        }
+
+        $row = fgetcsv($this->_filePointer, self::ROW_SIZE, $this->_delimiter);
+
+        if ((count($row) === 1) && ($row[0] === null))
+        {
+            fclose($this->_filePointer);
+            return false;
+        }
+
+        $this->_current = new Willow_Data_Object();
+
+        foreach ($row as $i => $column)
+        {
+            $this->_current->set($this->getHeader($i), $column);
         }
 
         return true;
