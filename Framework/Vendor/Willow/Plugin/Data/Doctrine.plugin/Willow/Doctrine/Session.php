@@ -30,7 +30,7 @@ class Willow_Doctrine_Session extends Doctrine_Record
     public static function fetch($id)
     {
         $query = Doctrine_Query::create()
-            ->from('willow_doctrine_session')
+            ->from('Willow_Doctrine_Session')
             ->where('id = ?', $id);
         return $query->fetchOne();
     }
