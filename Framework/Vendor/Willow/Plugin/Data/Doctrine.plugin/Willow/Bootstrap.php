@@ -32,6 +32,11 @@ $config = Willow_Blackboard::get('config');
 Doctrine_Manager::connection($config->db->connection, 'default');
 
 /**
+ * Connection binding
+ */
+Doctrine_Manager::getInstance()->bindComponent('Willow_Doctrine_Session', 'default');
+
+/**
  * Setup Doctrine collation & character set
  */
 Doctrine_Manager::getInstance()->setCollate($config->db->collation);
