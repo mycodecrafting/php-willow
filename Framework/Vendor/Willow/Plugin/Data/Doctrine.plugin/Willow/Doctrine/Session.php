@@ -4,6 +4,11 @@
 
 
 /**
+ * Connection binding
+ */
+Doctrine_Manager::getInstance()->bindComponent('Willow_Doctrine_Session', 'default');
+
+/**
  * ...
  */
 class Willow_Doctrine_Session extends Doctrine_Record
