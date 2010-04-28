@@ -108,6 +108,24 @@ class Willow_Utils_String
     /**
      * ...
      */
+    public function urlize()
+    {
+        // Remove all none word characters
+        $string = preg_replace('/\W/', ' ', strtolower(str_replace("'", '', $this->_string)));
+        
+        // More stripping. Replace spaces with dashes
+        $string = preg_replace('/[^A-Z^a-z^0-9^\/]+/', '-',
+            preg_replace('/([a-z\d])([A-Z])/', '\1_\2',
+            preg_replace('/([A-Z]+)([A-Z][a-z])/', '\1_\2',
+            preg_replace('/::/', '/', $string)))
+        );
+
+        return trim($string, '-');
+    }
+
+    /**
+     * ...
+     */
     public function transform(array $transformations)
     {
         return str_replace(array_keys($transformations), array_values($transformations), $this->_string);

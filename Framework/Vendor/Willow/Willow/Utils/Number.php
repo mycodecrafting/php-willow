@@ -17,6 +17,22 @@ class Willow_Utils_Number
     }
 
     /**
+     * ...
+     */
+    public function getValue()
+    {
+        return $this->_number;
+    }
+
+    /**
+     * ...
+     */
+    public function percentageOf($given)
+    {
+        return round($this->_number / $given * 100);
+    }
+
+    /**
      * Calculate the percentage off a given price
      */
     public function percentageOff($given, $precision = 0)
@@ -31,6 +47,15 @@ class Willow_Utils_Number
         }
 
         return round($percentage, $precision);
+    }
+
+    /**
+     * ...
+     */
+    public function toNearest($increment)
+    {
+        $increment = 1 / $increment;
+        return (round($this->_number * $increment) / $increment);
     }
 
     /**
