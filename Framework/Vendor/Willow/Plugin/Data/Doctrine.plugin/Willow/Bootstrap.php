@@ -36,7 +36,7 @@ Doctrine_Manager::connection($config->db->connection, 'default');
  */
 Doctrine_Manager::getInstance()->setCollate($config->db->collation);
 Doctrine_Manager::getInstance()->setCharset($config->db->charset);
-Doctrine_Manager::getConnection('default')->setCharset($config->db->charset);
+Doctrine_Manager::getInstance()->getConnection('default')->setCharset($config->db->charset);
 
 /**
  * Configure Doctrine
