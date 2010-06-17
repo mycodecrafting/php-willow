@@ -103,7 +103,7 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
     /**
      * Forward request to another action, section, or module
      */
-    protected function _forward(array $forwardTo)
+    protected function _forward(array $forwardTo, $useCurrentView = true)
     {
         /**
          * Change in action
@@ -140,6 +140,14 @@ abstract class Willow_Actions_Abstract implements Willow_Actions_Interface
          * Create forwarded to actions class instance
          */
         $actions = new $class($this->getRequest());
+
+        if ($useCurrentView !== true)
+        {
+            $factory = new Willow_View_Factory($this->getRequest());
+            $class = $factory->getClass();
+            unset($factory);
+            $this->attachView(new $class($this->getRequest()));
+        }
 
         /**
          * Attach the view
