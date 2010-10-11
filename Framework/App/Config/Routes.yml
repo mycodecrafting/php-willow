@@ -15,7 +15,7 @@ submitEntry:
     entryId:          "\d+"
 
 # generic delete entry route
-submitEntry:
+deleteEntry:
   route:              ":module/:section/delete/:entryId"
   defaults:
     action:           delete

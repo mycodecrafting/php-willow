@@ -1,7 +1,11 @@
+# setup some basic app parameters
 app:
   # development, test, production
   environment:          development
-  timezone:             UTC
+  # @see list of supported timezones <http://www.php.net/manual/en/timezones.php>
+  timezone:             America/New_York
   charset:              UTF-8
+
+# setup database connections
 db:
-  connection:           "mysql://root:cr8amps1@localhost/redtag_appserver"
+  connection:           "mysql://root:password@localhost/app-db"

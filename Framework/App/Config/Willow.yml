@@ -1,7 +1,51 @@
+# setup some basic app parameters
 app:
   # development, test, production
   environment:          development
-  timezone:             America/Chicago
+  # @see list of supported timezones <http://www.php.net/manual/en/timezones.php>
+  timezone:             America/New_York
   charset:              UTF-8
+
+# setup database connections
 db:
-  connection:           "mysql://root@localhost/app-db"
+  connection:           "mysql://root:password@localhost/app-db"
+  charset:              UTF8
+
+# add email branch to config
+email:
+  senderEmail:          admin@localhost
+  senderName:           Willow Application Admin
+
+  # configure Swift mailer
+  swift:
+    # select transport:  smtp | sendmail | mail
+    transport:            mail
+    # optional smtp config if using smtp transport (uncomment)
+    #smtp:
+    #  host:               smtp.example.org
+    #  port:               25
+    #  # optional username and password
+    #  # (comment or delete if not needed)
+    #  username:           admin@localhost
+    #  password:           password
+    #  # optional encryption:  ssl | tsl
+    #  # (comment or delete if not needed)
+    #  encryption:         tls
+
+# uris
+# (optional, but reccomended to keep track of and make uris configurable)
+#uris:
+#  public:
+#    homepage:             /
+
+# Facebook
+# (if using Facebook API)
+#facebook:
+#  appId:                "..."
+#  secret:               "..."
+
+# mailchimp
+# (if using MCAPI)
+#mailchimp:
+#  apiKey:               "..."
+#  listId:               "..."

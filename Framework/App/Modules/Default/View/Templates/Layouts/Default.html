@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<motif:include src="../Includes/Fragments/Common.html" />
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <motif:if var="motif.meta.keywords">
+        <meta name="keywords" content="{motif.meta.keywords}" />
+    </motif:if>
+
+    <motif:if var="motif.meta.description">
+        <meta name="description" content="{motif.meta.description}" />
+    </motif:if>
+
+    <motif:choose>
+        <motif:when var="motif.title">
+            <title>{motif.title} / My Willow Application</title>
+        </motif:when>
+        <motif:otherwise>
+            <title>My Willow Application</title>
+        </motif:otherwise>
+    </motif:choose>
+
+    <link href="/media/css/styles.css" rel="stylesheet" type="text/css" />
+
+    <motif:if var="motif.style">
+        <style type="text/css" media="screen">
+        <!--
+            {motif.style}
+        -->
+        </style>
+    </motif:if>
+    <motif:if var="motif.script">
+        <script type="text/javascript" charset="utf-8">
+        //<![CDATA[
+            {motif.script}
+        //]]>
+        </script>
+    </motif:if>
+
+</head>
+
+<body>
+
+    {page.content}
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+/* $Id$ */
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * HTTP_HOST required for Willow to find correct config
+ */
+$_SERVER['HTTP_HOST'] = 'my.hostname.tld';
+
+/**
+ * ...
+ */
+try
+{
+    /**
+     * Load CLI Application Bootstrap
+     */
+    require dirname(__FILE__) . '/../../../App/Bootstrap/Cli.php';
+
+    /**
+     * Exceute application
+     */
+    Willow_Application::getInstance()->dispatch();
+}
+
+/**
+ * Caught Exception; display generic message
+ */
+catch (Exception $e)
+{
+    echo "Willow CLI Utility\n\n" .
+        "!Internal Server Error\n" .
+        $e->getMessage() . "\n\n" .
+        "Stack Trace:\n" .
+        $e->getTrace();
+}

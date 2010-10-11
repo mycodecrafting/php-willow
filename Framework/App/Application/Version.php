@@ -54,11 +54,11 @@
 final class Willow_Application_Version
 {
 
-    const APP_NAME  = 'RedTag Appserver';
+    const APP_NAME  = 'Willow Application';
     const MAJOR_REV = 1;
     const MINOR_REV = 0;
     const BUG_REV   = 0;
-    const STAGE     = 'iteration';
+    const STAGE     = 'dev';
     const STAGE_REV = 1;
     const REL_DATE  = '$Date$';
 
