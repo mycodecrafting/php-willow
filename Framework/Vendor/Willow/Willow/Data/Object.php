@@ -89,7 +89,7 @@ class Willow_Data_Object implements ArrayAccess, IteratorAggregate
      */
     public function offsetSet($offset, $value)
     {
-        return $this->set($value);
+        return $this->set($offset, $value);
     }
 
     /**
@@ -121,7 +121,7 @@ class Willow_Data_Object implements ArrayAccess, IteratorAggregate
      */
     public function __set($property, $value)
     {
-        return $this->set($property);
+        return $this->set($property, $value);
     }
 
     /**
