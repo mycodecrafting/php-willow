@@ -150,27 +150,24 @@ class Willow_Xml_Template_Engine implements Willow_Template_Engine_Interface
             }
 
             /**
-             * assume numeric keys mean multi-dimensional array
+             * assume numeric key means anonymous child nodes
              */
-            elseif (is_numeric($key) && is_array($value))
+            if (is_numeric($key))
             {
-                foreach ($value as $key => $innerValue)
+                if (is_array($value))
                 {
-                    if (is_array($innerValue))
-                    {
-                        $node = $xml->addChild($key);
-                        $this->toXml($innerValue, $node);
-                    }
-                    else
-                    {
-                        $innerValue = htmlentities($innerValue);
-                        $xml->addChild($key, $innerValue);
-                    }
+                    $node = $xml->addChild('node');
+                    $this->toXml($value, $node);
+                }
+                else
+                {
+                    $value = htmlentities($value);
+                    $xml->addChild('node', $value);
                 }
             }
 
             /**
-             * ...
+             * named array keys
              */
             else
             {
