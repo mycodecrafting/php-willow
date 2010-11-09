@@ -41,6 +41,14 @@ abstract class Willow_Request_Abstract
     }
 
     /**
+     * ...
+     */
+    public function toArray()
+    {
+        return $this->_properties;
+    }
+
+    /**
      * Get a sanitized version of request
      */
     public function sanitized()
