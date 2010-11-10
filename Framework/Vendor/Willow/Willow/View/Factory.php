@@ -216,39 +216,69 @@ class Willow_View_Factory
     {
         $className = $this->_getClassName();
 
+        /**
+         * Attempt to locate first:
+         *   Modules.{Module}.View{RequestProtocol}
+         */
         try
         {
             $dataPath = array(
                 'Modules',
                 $this->_request->getModule(),
-                'View',
+                'View' . $this->_request->getProtocol(),
             );
 
             $dataPath = implode(':', $dataPath);
 
             $this->_checkDataPath($dataPath);
 
-            $parent = sprintf('%s_View', $this->_request->getModule());
+            $parent = sprintf('%s_View%s', $this->_request->getModule(), $this->_request->getProtocol());
         }
+
+        /**
+         * Failed! Attempt to locate:
+         *   Modules.{Module}.View
+         */
         catch (Willow_DataPath_Exception $e)
         {
-            $parent = 'Willow_View_Abstract';
-
-            if ($this->_request->getProtocol())
+            try
             {
-                $parent = sprintf('Willow_%s_View', $this->_request->getProtocol());
+                $dataPath = array(
+                    'Modules',
+                    $this->_request->getModule(),
+                    'View',
+                );
+
+                $dataPath = implode(':', $dataPath);
+
+                $this->_checkDataPath($dataPath);
+
+                $parent = sprintf('%s_View', $this->_request->getModule());                
+            }
+
+            /**
+             * Failed! Default to:
+             *   Willow.{RequestProtocol}.View
+             */
+            catch (Willow_DataPath_Exception $e)
+            {
+                $parent = 'Willow_View_Abstract';
+
+                if ($this->_request->getProtocol())
+                {
+                    $parent = sprintf('Willow_%s_View', $this->_request->getProtocol());
+                }
             }
         }
 
+        $reflection = new ReflectionMethod($parent, 'generate');
+
         $class = sprintf(
             'class %s extends %s' .
-            '{' .
-                'public function generate()' .
-                '{' .
-                '}' .
-            '}',
+            '{%s}',
             $className,
-            $parent
+            $parent,
+            ($reflection->isAbstract() ? 'public function generate() {}' : '')
         );
 
         eval($class);

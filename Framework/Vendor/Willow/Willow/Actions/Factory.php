@@ -241,15 +241,14 @@ class Willow_Actions_Factory
             }
         }
 
+        $reflection = new ReflectionMethod($parent, 'doAction');
+
         $class = sprintf(
             'class %s extends %s' .
-            '{' .
-                'public function doAction()' .
-                '{' .
-                '}' .
-            '}',
+            '{%s}',
             $className,
-            $parent
+            $parent,
+            ($reflection->isAbstract() ? 'public function doAction() {}' : '')
         );
 
         eval($class);
