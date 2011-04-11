@@ -27,9 +27,24 @@ Doctrine_Manager::getInstance()->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, t
 $config = Willow_Blackboard::get('config');
 
 /**
- * Setup Doctrine connection
+ * Setup Doctrine connection(s)
  */
-Doctrine_Manager::connection($config->db->connection, 'default');
+if (isset($config->db->connections))
+{
+    foreach ($config->db->connections as $name => $connection)
+    {
+        Doctrine_Manager::connection($connection, $name);
+    }
+
+    if (!isset($config->db->connections->default) && isset($config->db->connections->master))
+    {
+        Doctrine_Manager::connection($config->db->connections->master, 'default');
+    }
+}
+else
+{
+    Doctrine_Manager::connection($config->db->connection, 'default');
+}
 
 /**
  * Setup Doctrine collation & character set
