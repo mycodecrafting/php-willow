@@ -46,7 +46,7 @@ class Willow_Plugin_Loader
         /**
          * Get plugins of this type in any of the plugin paths
          */
-        foreach ($pluginPaths as $path)
+        foreach (array_reverse($pluginPaths) as $path)
         {
             foreach (self::_getPluginsInPath(sprintf($path, $type)) as $plugin)
             {
@@ -80,7 +80,7 @@ class Willow_Plugin_Loader
         /**
          * Bootstrap plugins
          */
-        foreach ($bootstrapping as $bootstrap)
+        foreach (array_reverse($bootstrapping) as $bootstrap)
         {
             require $bootstrap;
         }

@@ -45,11 +45,14 @@ class Willow_Xml_Error_View extends Willow_Http_Error_View
         $error->createChild('message')->setValue($message);
         $error->createChild('requestUri')->setValue($requestUri);
 
-        $stackTrace = $error->createChild('stackTrace');
-
-        foreach (explode("\n", $this->_error->getTraceAsString()) as $frame)
+        if (Willow_Blackboard::get('config')->app->environment === 'development')
         {
-            $stackTrace->createChild('frame')->setValue($frame);
+            $stackTrace = $error->createChild('stackTrace');
+
+            foreach (explode("\n", $this->_error->getTraceAsString()) as $frame)
+            {
+                $stackTrace->createChild('frame')->setValue($frame);
+            }
         }
 
         echo $error->asXml();
