@@ -48,30 +48,32 @@ class Willow_Loader
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-        return self::_getRealPath($dataPath, $overridable, $ext);
+        if (function_exists('apc_add') === false || function_exists('posix_getpid') === false)
+        {
+            return self::_getRealPath($dataPath, $overridable, $ext);
+        }
 
         if (self::$_dataPaths === null)
         {
-            $cacheKey = md5(serialize(array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
-            $cacheFile = Willow::getRoot() . DIRECTORY_SEPARATOR . 'Tmp' . DIRECTORY_SEPARATOR . 'willow.datapaths.' . $cacheKey;
+            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment(), posix_getpid())));
 
             self::$_dataPaths = array();
 
-            if (file_exists($cacheFile))
+            if (apx_exists($cacheKey))
             {
-                self::$_dataPaths = unserialize(file_get_contents($cacheFile));
+                self::$_dataPaths = apc_fetch($cacheKey);
             }
         }
 
-        $dataPathKey = md5(serialize(array($dataPath, $overridable, $ext)));
+        $dataPathKey = md5(implode('|', array($dataPath, $overridable, $ext)));
 
         if (!isset(self::$_dataPaths[$dataPathKey]))
         {
             self::$_dataPaths[$dataPathKey] = self::_getRealPath($dataPath, $overridable, $ext);
 
-            $cacheKey = md5(serialize(array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
-            $cacheFile = Willow::getRoot() . DIRECTORY_SEPARATOR . 'Tmp' . DIRECTORY_SEPARATOR . 'willow.datapaths.' . $cacheKey;
-            file_put_contents($cacheFile, serialize(self::$_dataPaths));
+            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment(), posix_getpid())));
+
+            apc_store($cacheFile, self::$_dataPaths, 86400);
         }
 
         return self::$_dataPaths[$dataPathKey];
