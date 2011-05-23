@@ -16,9 +16,11 @@ class Willow_Plugin_Autoloader extends Willow_Autoloader_Abstract
         try
         {
             $this->_loadFile(str_replace('_', ':', $className));
+            return true;
         }
         catch (Willow_DataPath_Exception $e)
         {
+            return false;
         }
     }
 

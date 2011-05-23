@@ -15,15 +15,17 @@ class Willow_Autoloader extends Willow_Autoloader_Abstract
     {
         if (strpos($className, 'Willow_') !== 0)
         {
-            return;
+            return false;
         }
 
         try
         {
             $this->_loadFile('App:' . str_replace('_', ':', substr($className, 7)));
+            return true;
         }
         catch (Willow_DataPath_Exception $e)
         {
+            return false;
         }
     }
 

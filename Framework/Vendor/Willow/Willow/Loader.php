@@ -41,10 +41,49 @@ class Willow_Loader
     }
 
 
+    protected static $_dataPaths = null;
+
     /**
      * Get the real filesystem path from the framework data path
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
+    {
+        if (function_exists('apc_store') === false)
+        {
+            return self::_getRealPath($dataPath, $overridable, $ext);
+        }
+
+        if (self::$_dataPaths === null)
+        {
+            $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
+            $apcKey = md5(serialize($apcKey));
+
+            self::$_dataPaths = array();
+            if (apc_exists($apcKey) === true)
+            {
+                self::$_dataPaths = apc_fetch($apcKey);
+            }
+
+        }
+
+        $dataPathKey = md5(serialize(array($dataPath, $overridable, $ext)));
+
+        if (!isset(self::$_dataPaths[$dataPathKey]))
+        {
+            self::$_dataPaths[$dataPathKey] = self::_getRealPath($dataPath, $overridable, $ext);
+
+            $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
+            $apcKey = md5(serialize($apcKey));
+            apc_store($apcKey, self::$_dataPaths, 86400);
+        }
+
+        return self::$_dataPaths[$dataPathKey];
+    }
+
+    /**
+     * Get the real filesystem path from the framework data path
+     */
+    public static function _getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
         $dataPathArray = explode(':', $dataPath);
 
@@ -271,12 +310,16 @@ class Willow_Loader
      */
     public static function buildPath($dataPath, $ext = false)
     {
-        $path = Willow::getRoot() . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, array_map(
-            function($part)
+        $dataPath = explode(':', $dataPath);
+        foreach ($dataPath as $i => $part)
+        {
+            if ($part === 'App')
             {
-                return ($part === 'App' ? Willow::getAppDir() : $part);
-            }, explode(':', $dataPath)
-        ));
+                $dataPath[$i] = Willow::getAppDir();
+            }
+        }
+
+        $path = Willow::getRoot() . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $dataPath);
 
         if ($ext !== false)
         {
