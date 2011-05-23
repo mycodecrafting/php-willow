@@ -73,8 +73,7 @@ class Willow_Loader
 
             $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
             $apcKey = md5(serialize($apcKey));
-            apc_delete($apcKey);
-            apc_add($apcKey, self::$_dataPaths, 86400);
+            apc_store($apcKey, self::$_dataPaths, 86400);
         }
 
         return self::$_dataPaths[$dataPathKey];
