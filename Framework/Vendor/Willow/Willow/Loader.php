@@ -48,22 +48,18 @@ class Willow_Loader
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-        return self::_getRealPath($dataPath, $overridable, $ext);
-
-        if (function_exists('apc_add') === false)
-        {
-            return self::_getRealPath($dataPath, $overridable, $ext);
-        }
+//        return self::_getRealPath($dataPath, $overridable, $ext);
 
         if (self::$_dataPaths === null)
         {
-            $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
-            $apcKey = md5(serialize($apcKey));
+            $cacheKey = md5(serialize(array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
+            $cacheFile = Willow::getRoot() . DIRECTORY_SEPARATOR . 'Tmp' . DIRECTORY_SEPARATOR . 'willow.datapaths.' . $cacheKey;
 
             self::$_dataPaths = array();
-            if (apc_exists($apcKey) === true)
+
+            if (file_exists($cacheFile))
             {
-                self::$_dataPaths = apc_fetch($apcKey);
+                self::$_dataPaths = unserialize(file_get_contents($cacheFile));
             }
         }
 
@@ -73,9 +69,9 @@ class Willow_Loader
         {
             self::$_dataPaths[$dataPathKey] = self::_getRealPath($dataPath, $overridable, $ext);
 
-            $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
-            $apcKey = md5(serialize($apcKey));
-            apc_store($apcKey, self::$_dataPaths, 86400);
+            $cacheKey = md5(serialize(array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
+            $cacheFile = Willow::getRoot() . DIRECTORY_SEPARATOR . 'Tmp' . DIRECTORY_SEPARATOR . 'willow.datapaths.' . $cacheKey;
+            file_put_contents($cacheFile, serialize(self::$_dataPaths));
         }
 
         return self::$_dataPaths[$dataPathKey];
