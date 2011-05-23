@@ -48,9 +48,7 @@ class Willow_Loader
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-        return self::_getRealPath($dataPath, $overridable, $ext);
-
-        if (function_exists('apc_store') === false)
+        if (function_exists('apc_add') === false)
         {
             return self::_getRealPath($dataPath, $overridable, $ext);
         }
@@ -65,7 +63,6 @@ class Willow_Loader
             {
                 self::$_dataPaths = apc_fetch($apcKey);
             }
-
         }
 
         $dataPathKey = md5(serialize(array($dataPath, $overridable, $ext)));
@@ -76,7 +73,7 @@ class Willow_Loader
 
             $apcKey = array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment());
             $apcKey = md5(serialize($apcKey));
-            apc_store($apcKey, self::$_dataPaths, 86400);
+            apc_add($apcKey, self::$_dataPaths, 86400);
         }
 
         return self::$_dataPaths[$dataPathKey];
