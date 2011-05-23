@@ -48,7 +48,7 @@ class Willow_Loader
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-        return self::_getRealPath($dataPath, $overridable, $ext);
+//        return self::_getRealPath($dataPath, $overridable, $ext);
 
         if (function_exists('apc_store') === false)
         {
