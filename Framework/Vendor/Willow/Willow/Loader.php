@@ -59,7 +59,7 @@ class Willow_Loader
 
             self::$_dataPaths = array();
 
-            if (apx_exists($cacheKey))
+            if (apc_exists($cacheKey))
             {
                 self::$_dataPaths = apc_fetch($cacheKey);
             }
@@ -73,7 +73,7 @@ class Willow_Loader
 
             $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment(), posix_getpid())));
 
-            apc_store($cacheFile, self::$_dataPaths, 86400);
+            apc_store($cacheKey, self::$_dataPaths, 86400);
         }
 
         return self::$_dataPaths[$dataPathKey];
