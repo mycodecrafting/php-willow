@@ -83,8 +83,6 @@ class Willow_Loader
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-//        return self::_instance()->_getRealPath($dataPath, $overridable, $ext);
-
         $dataPathKey = md5(implode('|', array($dataPath, $overridable, $ext)));
 
         if (!isset(self::_instance()->_dataPaths[$dataPathKey]))
