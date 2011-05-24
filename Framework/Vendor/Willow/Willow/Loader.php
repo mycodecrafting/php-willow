@@ -6,6 +6,44 @@
 class Willow_Loader
 {
 
+    protected $_dataPaths = null;
+
+    /**
+     * Prevent public construction of object
+     */
+    private function __construct()
+    {
+        $this->_dataPaths = array();
+
+        if (function_exists('apc_exists'))
+        {
+            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
+            if (apc_exists($cacheKey))
+            {
+                $this->_dataPaths = apc_fetch($cacheKey);
+            }
+        }
+    }
+
+    public function __destruct()
+    {
+        if (function_exists('apc_exists'))
+        {
+            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
+
+            $dataPaths = array();
+            if (apc_exists($cacheKey))
+            {
+                $dataPaths = apc_fetch($cacheKey);
+            }
+
+            if ($dataPaths != $this->_dataPaths)
+            {
+                apc_store($cacheKey, $this->_dataPaths, 86400);
+            }
+        }
+    }
+
     protected static $_pathCache = array();
 
     public static function loadFile($dataPath, $once = true, $overridable = true)
@@ -40,46 +78,27 @@ class Willow_Loader
         self::$_pathCache[$dataPath] = $path;
     }
 
-
-    protected static $_dataPaths = null;
-
     /**
      * Get the real filesystem path from the framework data path
      */
     public static function getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
-        return self::_getRealPath($dataPath, $overridable, $ext);
-
-        if (self::$_dataPaths === null)
-        {
-            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment(), posix_getpid())));
-
-            self::$_dataPaths = array();
-
-            if (apc_exists($cacheKey))
-            {
-                self::$_dataPaths = apc_fetch($cacheKey);
-            }
-        }
+//        return self::_instance()->_getRealPath($dataPath, $overridable, $ext);
 
         $dataPathKey = md5(implode('|', array($dataPath, $overridable, $ext)));
 
-        if (!isset(self::$_dataPaths[$dataPathKey]))
+        if (!isset(self::_instance()->_dataPaths[$dataPathKey]))
         {
-            self::$_dataPaths[$dataPathKey] = self::_getRealPath($dataPath, $overridable, $ext);
-
-            $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment(), posix_getpid())));
-
-            apc_store($cacheKey, self::$_dataPaths, 86400);
+            self::_instance()->_dataPaths[$dataPathKey] = self::_instance()->_getRealPath($dataPath, $overridable, $ext);
         }
 
-        return self::$_dataPaths[$dataPathKey];
+        return self::_instance()->_dataPaths[$dataPathKey];
     }
 
     /**
      * Get the real filesystem path from the framework data path
      */
-    public static function _getRealPath($dataPath, $overridable = true, $ext = 'php')
+    protected function _getRealPath($dataPath, $overridable = true, $ext = 'php')
     {
         $dataPathArray = explode(':', $dataPath);
 
@@ -336,6 +355,24 @@ class Willow_Loader
         }
 
         return self::getRealPath('Deployment:' . $dataPath);
+    }
+
+    /**
+     * @var Willow_Loader Instance of self
+     */
+    private static $_instance = null;
+
+    /**
+     * Get the singleton instance of self
+     */
+    private static function _instance()
+    {
+        if ((self::$_instance instanceof Willow_Loader) === false)
+        {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
     }
 
 }
