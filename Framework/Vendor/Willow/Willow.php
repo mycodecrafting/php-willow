@@ -39,13 +39,31 @@ final class Willow
         {
             $domainTree = explode('.', $_SERVER['HTTP_HOST']);
 
+            $port = ':80';
+
+            if (strpos($_SERVER['HTTP_HOST'], ':') !== false)
+            {
+                $port = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], ':') + 1);
+                $host = substr($_SERVER['HTTP_HOST'], 0, strpos($_SERVER['HTTP_HOST'], ':'));
+                $domainTree = explode('.', $host);
+            }
+            else
+            {
+                $domainTree = explode('.', $_SERVER['HTTP_HOST']);
+            }
+
             $deploymentRoot = self::getRoot() . DIRECTORY_SEPARATOR . 'Deployment';
 
             do
             {
                 $deployment = implode('.', $domainTree);
 
-                if (is_dir($deploymentRoot . DIRECTORY_SEPARATOR . $deployment))
+                if (is_dir($deploymentRoot . DIRECTORY_SEPARATOR . $deployment . $port))
+                {
+                    self::_instance()->_deployment = $deployment . $port;
+                    break;
+                }
+                elseif (is_dir($deploymentRoot . DIRECTORY_SEPARATOR . $deployment))
                 {
                     self::_instance()->_deployment = $deployment;
                     break;
