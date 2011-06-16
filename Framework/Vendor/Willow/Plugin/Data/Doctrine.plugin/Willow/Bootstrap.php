@@ -18,8 +18,8 @@ Willow_Autoloader::register(new Willow_Doctrine_Autoloader());
 /**
  * Setup Doctrine attributes
  */
-Doctrine_Manager::getInstance()->setAttribute(Doctrine::ATTR_AUTO_FREE_QUERY_OBJECTS, true);
-Doctrine_Manager::getInstance()->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, true);
+Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_AUTO_FREE_QUERY_OBJECTS, true);
+Doctrine_Manager::getInstance()->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, true);
 
 /**
  * Get the config registered to the blackboard

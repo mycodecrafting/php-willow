@@ -12,11 +12,19 @@ class Willow_Doctrine_Autoloader extends Willow_Autoloader_Abstract
     public function autoload($className)
     {
         /**
-         * If this is a doctrine class, load the compiled code
+         * Doctrine_Core
          */
-        if (strpos($className, 'Doctrine') === 0)
+        if ($className === 'Doctrine_Core')
         {
-            require str_replace('_', DS, $className) . '.php';
+            require 'Doctrine/Core.php';
+        }
+
+        /**
+         * If this is a doctrine class, call the Doctrine autoloader
+         */
+        elseif ((strpos($className, 'Doctrine') === 0) || (strpos($className, 'sfYaml') === 0))
+        {
+            return Doctrine_Core::autoload($className);
         }
 
         /**
