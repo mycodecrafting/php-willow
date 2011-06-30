@@ -17,9 +17,9 @@ class Willow_Template implements Willow_Registerable_Interface
     /**
      * Constructor
      *
-     * @param Willow_Request $request
+     * @param Willow_Request_Interface $request
      */
-    public function __construct(Willow_Request $request)
+    public function __construct(Willow_Request_Interface $request)
     {
         $this->_engine = $this->getRegistered($request->getProtocol());
     }
