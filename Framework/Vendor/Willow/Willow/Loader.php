@@ -121,7 +121,7 @@ class Willow_Loader
                  */
                 if ($overridable === true)
                 {
-                    if (($path = self::isOverriden($dataPathArray)) !== false)
+                    if (($path = self::isOverriden($dataPathArray, $ext)) !== false)
                     {
                         return $path;
                     }
@@ -154,7 +154,7 @@ class Willow_Loader
                  */
                 if ($overridable === true)
                 {
-                    if (($path = self::isOverriden($dataPathArray)) !== false)
+                    if (($path = self::isOverriden($dataPathArray, $ext)) !== false)
                     {
                         return $path;
                     }
@@ -207,7 +207,7 @@ class Willow_Loader
                  */
                 if ($overridable === true)
                 {
-                    if (($path = self::isOverriden($pluginDataPath)) !== false)
+                    if (($path = self::isOverriden($pluginDataPath, $ext)) !== false)
                     {
                         return $path;
                     }
@@ -255,7 +255,7 @@ class Willow_Loader
                  */
                 if ($overridable === true)
                 {
-                    if (($path = self::isOverriden($dataPathArray)) !== false)
+                    if (($path = self::isOverriden($dataPathArray, $ext)) !== false)
                     {
                         return $path;
                     }
@@ -278,7 +278,7 @@ class Willow_Loader
                 /**
                  * Deployment overriding
                  */
-                if (($overridable === true) && (($path = self::isOverriden($dataPath)) !== false))
+                if (($overridable === true) && (($path = self::isOverriden($dataPath, $ext)) !== false))
                 {
                     return $path;
                 }
@@ -345,14 +345,14 @@ class Willow_Loader
     /**
      * ...
      */
-    public static function isOverriden($dataPath)
+    public static function isOverriden($dataPath, $ext = 'php')
     {
         if (is_array($dataPath))
         {
             $dataPath = implode(':', $dataPath);
         }
 
-        return self::getRealPath('Deployment:' . $dataPath);
+        return self::getRealPath('Deployment:' . $dataPath, true, $ext);
     }
 
     /**
