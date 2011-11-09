@@ -32,6 +32,11 @@ if (defined('NL') === false)
 }
 
 /**
+ * Load Willow
+ */
+require dirname(__FILE__) . DS . 'Willow.php';
+
+/**
  * Set Application path
  */
 if (defined('APPLICATION_PATH'))
@@ -39,11 +44,6 @@ if (defined('APPLICATION_PATH'))
     Willow::setAppDir(APPLICATION_PATH);
     Willow::setRoot(APPLICATION_PATH . '/../');
 }
-
-/**
- * Load Willow
- */
-require dirname(__FILE__) . DS . 'Willow.php';
 
 /**
  * Load Version
