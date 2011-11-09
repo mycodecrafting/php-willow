@@ -6,7 +6,7 @@
 /**
  * Load Motif library from Vendors
  */
-Willow_Loader::loadFile('Vendor:Motif:Motif', $once = true);
+Willow_Loader::loadFile('Vendor:Motif:lib:Motif', $once = true);
 
 /**
  * Register the Motif engine for use with HTTP (html) protocol requests

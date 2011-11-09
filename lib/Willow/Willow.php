@@ -71,9 +71,9 @@ final class Willow
             }
             while (array_shift($domainTree) !== null);
 
-            if (self::_instance()->_deployment === null)
+            if (self::_instance()->_deployment === '')
             {
-                $deployment = 'default';
+                self::_instance()->_deployment = 'default';
             }
         }
 

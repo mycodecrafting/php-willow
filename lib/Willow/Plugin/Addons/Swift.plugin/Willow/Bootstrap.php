@@ -6,7 +6,7 @@
 /**
  * Include Swift
  */
-Willow_Loader::loadFile('Vendor:Swift:swift_required');
+Willow_Loader::loadFile('Vendor:Swift:lib:swift_required');
 
 /**
  * Register Mailer adapter
