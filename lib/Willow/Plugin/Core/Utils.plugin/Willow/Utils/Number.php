@@ -75,7 +75,7 @@ class Willow_Utils_Number
     }
 
     /**
-     * Based on he algorithm presented in http://homepage.smc.edu/kennedy_john/DEC2FRAC.PDF
+     * Based on the algorithm presented in http://homepage.smc.edu/kennedy_john/DEC2FRAC.PDF
      */
     public function toFraction($precision = 5.0E-7)
     {
@@ -123,35 +123,6 @@ class Willow_Utils_Number
         $numerator = $numerator * $decimalSign;
 
         return ($integer ? $integer . ' ' : '') . $numerator . '/' . $denominator;
-    }
-
-    public function toFractionOld()
-    {
-        if (floor($this->_number) == $this->_number)
-        {
-            return $this->_number;
-        }
-
-        $integer = floor($this->_number);
-        $decimal = $this->_number - $integer;
-        $numerator = 1;
-        $denominator = (10e15 - 1) / ($decimal * 10e15);
-        $remainder = $denominator - floor($denominator);
-        $factor = $remainder < 1e-10 ? 1 : (10e15 - 1) / ($remainder * 10e15);
-
-        $numerator *= $factor;
-        $denominator *= $factor;
-
-        $factorRemainder = $factor - floor($factor);
-
-        if ($factorRemainder > 1e-10)
-        {
-            $factor = (10e15 - 1) / ($factorRemainder * 10e15);
-            $numerator *= $factor;
-            $denominator *= $factor;
-        }
-
-        return ($integer ? $integer . ' ' : '') . round($numerator) . '/' . round($denominator);
     }
 
 }

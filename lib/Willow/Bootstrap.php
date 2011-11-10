@@ -116,12 +116,6 @@ mb_internal_encoding($config->app->charset);
 date_default_timezone_set($config->app->timezone);
 
 /**
- * Setup utils
- */
-Willow_Utils::register('string', 'Willow_Utils_String');
-Willow_Utils::register('number', 'Willow_Utils_Number');
-
-/**
  * Load framework plugins
  */
 Willow_Plugin_Loader::loadAll(
