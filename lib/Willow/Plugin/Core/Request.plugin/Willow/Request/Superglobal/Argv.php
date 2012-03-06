@@ -29,7 +29,7 @@ class Willow_Request_Superglobal_Argv extends Willow_Request_Abstract
          */
         $args['command'] = false;
 
-        if ($this->_isArg($GLOBALS['argv'][1]) === false)
+        if (isset($GLOBALS['argv'][1]) && $this->_isArg($GLOBALS['argv'][1]) === false)
         {
             $args['command'] = $GLOBALS['argv'][1];
         }
