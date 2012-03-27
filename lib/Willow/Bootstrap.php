@@ -116,6 +116,14 @@ mb_internal_encoding($config->app->charset);
 date_default_timezone_set($config->app->timezone);
 
 /**
+ * Disable caches by default on development
+ */
+if ($config->app->environment === 'development')
+{
+    Willow::setCacheEnabled(false);
+}
+
+/**
  * Load framework plugins
  */
 Willow_Plugin_Loader::loadAll(

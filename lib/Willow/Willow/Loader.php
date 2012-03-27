@@ -15,7 +15,7 @@ class Willow_Loader
     {
         $this->_dataPaths = array();
 
-        if (function_exists('apc_exists'))
+        if (function_exists('apc_exists') && (Willow::isCacheEnabled() === true))
         {
             $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
             if (apc_exists($cacheKey))
@@ -27,7 +27,7 @@ class Willow_Loader
 
     public function __destruct()
     {
-        if (function_exists('apc_exists'))
+        if (function_exists('apc_exists') && (Willow::isCacheEnabled() === true))
         {
             $cacheKey = md5(implode('|', array('datapaths', Willow::getRoot(), Willow::getAppDir(), Willow::getDeployment())));
 

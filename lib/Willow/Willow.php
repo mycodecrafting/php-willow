@@ -140,6 +140,32 @@ final class Willow
     }
 
     /**
+     * ...
+     */
+    private $_cacheEnabled = true;
+
+    /**
+     * Set framework caches enabled/disabled
+     *
+     * @param boolean $isIt Is it enabled?
+     * @return void
+     */
+    public static function setCacheEnabled($isIt)
+    {
+        self::_instance()->_cacheEnabled = $isIt ? true : false;
+    }
+
+    /**
+     * Are framework caches enabled?
+     *
+     * @return boolean
+     */
+    public static function isCacheEnabled()
+    {
+        return self::_instance()->_cacheEnabled;
+    }
+
+    /**
      * @var Willow_Yaml_Node Application config
      */
     private $_config;
