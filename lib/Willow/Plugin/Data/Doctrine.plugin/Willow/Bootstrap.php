@@ -29,7 +29,7 @@ $config = Willow_Blackboard::get('config');
 /**
  * Setup Doctrine connection(s)
  */
-if (isset($config->db->connections))
+if (isset($config->db->connections) && ($config->db->connections !== null))
 {
     foreach ($config->db->connections as $name => $connection)
     {
@@ -41,7 +41,7 @@ if (isset($config->db->connections))
         Doctrine_Manager::connection($config->db->connections->master, 'default');
     }
 }
-else
+elseif (isset($config->db->connection) && ($config->db->connection !== null))
 {
     Doctrine_Manager::connection($config->db->connection, 'default');
 }
@@ -51,7 +51,14 @@ else
  */
 Doctrine_Manager::getInstance()->setCollate($config->db->collation);
 Doctrine_Manager::getInstance()->setCharset($config->db->charset);
-Doctrine_Manager::getInstance()->getConnection('default')->setCharset($config->db->charset);
+
+try
+{
+    Doctrine_Manager::getInstance()->getConnection('default')->setCharset($config->db->charset);
+}
+catch (Doctrine_Manager_Exception $e)
+{
+}
 
 /**
  * Configure Doctrine
