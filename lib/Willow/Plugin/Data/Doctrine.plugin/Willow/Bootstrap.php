@@ -49,15 +49,18 @@ elseif (isset($config->db->connection) && ($config->db->connection !== null))
 /**
  * Setup Doctrine collation & character set
  */
-Doctrine_Manager::getInstance()->setCollate($config->db->collation);
-Doctrine_Manager::getInstance()->setCharset($config->db->charset);
+if (count(Doctrine_Manager::getInstance()->getConnections()) > 0)
+{
+    Doctrine_Manager::getInstance()->setCollate($config->db->collation);
+    Doctrine_Manager::getInstance()->setCharset($config->db->charset);
 
-try
-{
-    Doctrine_Manager::getInstance()->getConnection('default')->setCharset($config->db->charset);
-}
-catch (Doctrine_Manager_Exception $e)
-{
+    try
+    {
+        Doctrine_Manager::getInstance()->getConnection('default')->setCharset($config->db->charset);
+    }
+    catch (Doctrine_Manager_Exception $e)
+    {
+    }
 }
 
 /**
