@@ -50,6 +50,9 @@ final class Willow
             else
             {
                 $domainTree = explode('.', $_SERVER['HTTP_HOST']);
+                if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] !== '')) {
+                    $port = $_SERVER['SERVER_PORT'];
+                }
             }
 
             $deploymentRoot = self::getRoot() . DIRECTORY_SEPARATOR . 'Deployment';
